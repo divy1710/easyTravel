@@ -6,7 +6,7 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Dashboard from './pages/Dashboard';
 import Trips from './pages/Trips';
-import TripForm from './pages/TripForm';
+import CreateTrip from './pages/CreateTrip';
 import TripDetail from './pages/TripDetail';
 import TimelinePage from './pages/TimelinePage';
 import MapPage from './pages/MapPage';
@@ -33,7 +33,7 @@ export default function App() {
         } />
         <Route path="/trips/new" element={
           <ProtectedRoute>
-            <TripForm />
+            <CreateTrip />
           </ProtectedRoute>
         } />
         <Route path="/trips/:id" element={

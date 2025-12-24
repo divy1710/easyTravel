@@ -180,10 +180,16 @@ export default function Dashboard() {
                   <Clock className="w-5 h-5 text-indigo-400" />
                   Recent Adventures
                 </h2>
-                <Link to="/trips" className="text-sm text-indigo-400 hover:text-indigo-300 font-medium flex items-center gap-1">
-                  View all
-                  <ChevronRight className="w-4 h-4" />
-                </Link>
+                <div className="flex items-center gap-4">
+                  <Link to="/trips/new" className="text-sm text-purple-400 hover:text-purple-300 font-medium flex items-center gap-1">
+                    <Plus className="w-4 h-4" />
+                    Create Trip
+                  </Link>
+                  <Link to="/trips" className="text-sm text-indigo-400 hover:text-indigo-300 font-medium flex items-center gap-1">
+                    View all
+                    <ChevronRight className="w-4 h-4" />
+                  </Link>
+                </div>
               </div>
 
               {loading ? (

@@ -15,6 +15,58 @@ interface DirectionsResult {
   to: [number, number];
 }
 
+export interface PlaceSuggestion {
+  id: string;
+  name: string;
+  fullName: string;
+  coordinates: [number, number]; // [lng, lat]
+  type: string;
+}
+
+/**
+ * Search for cities/places using Mapbox Geocoding API
+ * @param query Search query string
+ * @param limit Max number of results
+ */
+export async function searchPlaces(
+  query: string,
+  limit: number = 5
+): Promise<PlaceSuggestion[]> {
+  if (!query || query.length < 2) return [];
+
+  const cacheKey = `search:${query.toLowerCase()}`;
+  const cached = cache.get<PlaceSuggestion[]>(cacheKey);
+  if (cached) return cached;
+
+  const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(query)}.json`;
+  
+  try {
+    const res = await axios.get(url, {
+      params: {
+        access_token: config.mapboxToken,
+        types: 'place,locality,region', // Cities, towns, regions
+        limit,
+        language: 'en'
+      },
+      timeout: 5000
+    });
+
+    const suggestions: PlaceSuggestion[] = (res.data.features || []).map((feature: any) => ({
+      id: feature.id,
+      name: feature.text,
+      fullName: feature.place_name,
+      coordinates: feature.center, // [lng, lat]
+      type: feature.place_type?.[0] || 'place'
+    }));
+
+    cache.set(cacheKey, suggestions);
+    return suggestions;
+  } catch (err) {
+    console.error('Mapbox geocoding error:', err);
+    return [];
+  }
+}
+
 /**
  * Get travel time and distance between two places using Mapbox Directions API.
  * @param from [lng, lat]

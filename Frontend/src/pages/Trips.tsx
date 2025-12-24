@@ -3,7 +3,6 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { getTrips, deleteTrip } from '../api/trip';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { CreateTripModal } from '../components/CreateTripModal';
 import { ItineraryDisplay } from '../components/ItineraryDisplay';
 import {
   Plus,
@@ -30,7 +29,6 @@ interface Trip {
 
 export default function Trips() {
   const queryClient = useQueryClient();
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [generatedItinerary, setGeneratedItinerary] = useState<any>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null);
@@ -43,11 +41,6 @@ export default function Trips() {
       setDeleteConfirm(null);
     }
   });
-
-  const handleTripCreated = (data: any) => {
-    setGeneratedItinerary(data.aiItinerary);
-    queryClient.invalidateQueries({ queryKey: ['trips'] });
-  };
 
   const filteredTrips = trips?.filter((trip: Trip) =>
     trip.title?.toLowerCase().includes(searchQuery.toLowerCase())
@@ -129,16 +122,16 @@ export default function Trips() {
                   {trips?.length || 0} adventures planned and counting
                 </p>
               </div>
-              <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                onClick={() => setIsModalOpen(true)}
-                className="inline-flex items-center gap-2 bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-6 py-4 rounded-2xl font-semibold hover:shadow-lg hover:shadow-purple-500/25 transition-all"
-              >
-                <Sparkles className="w-5 h-5" />
-                Create AI Trip
-                <Plus className="w-5 h-5" />
-              </motion.button>
+              <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                <Link
+                  to="/trips/new"
+                  className="inline-flex items-center gap-2 bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-6 py-4 rounded-2xl font-semibold hover:shadow-lg hover:shadow-purple-500/25 transition-all"
+                >
+                  <Sparkles className="w-5 h-5" />
+                  Create AI Trip
+                  <Plus className="w-5 h-5" />
+                </Link>
+              </motion.div>
             </div>
           </motion.div>
 
@@ -198,15 +191,15 @@ export default function Trips() {
                   : 'Your journey begins with a single trip. Let our AI plan your perfect adventure!'}
               </p>
               {!searchQuery && (
-                <motion.button
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  onClick={() => setIsModalOpen(true)}
-                  className="inline-flex items-center gap-2 bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-8 py-4 rounded-2xl font-semibold hover:shadow-lg hover:shadow-purple-500/25 transition-all"
-                >
-                  <Sparkles className="w-5 h-5" />
-                  Create Your First Trip
-                </motion.button>
+                <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                  <Link
+                    to="/trips/new"
+                    className="inline-flex items-center gap-2 bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-8 py-4 rounded-2xl font-semibold hover:shadow-lg hover:shadow-purple-500/25 transition-all"
+                  >
+                    <Sparkles className="w-5 h-5" />
+                    Create Your First Trip
+                  </Link>
+                </motion.div>
               )}
             </motion.div>
           )}
@@ -309,12 +302,6 @@ export default function Trips() {
           )}
         </div>
       </div>
-
-      <CreateTripModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        onSuccess={handleTripCreated}
-      />
     </div>
   );
 }

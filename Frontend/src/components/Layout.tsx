@@ -1,76 +1,20 @@
-import { ReactNode, useState } from 'react';
+import { ReactNode, useState, useRef, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { motion } from 'framer-motion';
-import { Plane, Mail, MapPin, Phone, Send, Facebook, Twitter, Instagram, Linkedin, Youtube, Heart, Globe, Shield, Clock } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Mail, MapPin, Phone, Send, Facebook, Twitter, Instagram, Linkedin, Youtube, Heart, Globe, Shield, Clock, User, LogOut, Settings, ChevronDown, Plane } from 'lucide-react';
 
-// Animated Logo Component
-function AnimatedLogo({ isHomePage }: { isHomePage: boolean }) {
+// Logo Component
+function Logo() {
   return (
-    <Link to="/" className="flex items-center gap-2 font-bold text-xl group">
-      {/* Animated plane icon */}
-      <motion.div
-        className={`relative flex items-center justify-center w-9 h-9 rounded-xl ${
-          isHomePage 
-            ? 'bg-white/20 backdrop-blur-sm' 
-            : 'bg-gradient-to-br from-indigo-500 to-purple-600'
-        }`}
+    <Link to="/" className="flex items-center group">
+      <motion.img
+        src="/logo.jpeg"
+        alt="EasyTravel"
+        className="h-14 w-14 rounded-full object-cover border-2 border-white/20"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
-      >
-        <motion.div
-          initial={{ x: 0, y: 0 }}
-          animate={{ 
-            x: [0, 2, 0],
-            y: [0, -2, 0]
-          }}
-          transition={{ 
-            duration: 2,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-        >
-          <Plane className={`w-5 h-5 ${isHomePage ? 'text-white' : 'text-white'} transform rotate-[-30deg]`} />
-        </motion.div>
-        {/* Animated trail */}
-        <motion.div
-          className={`absolute -left-1 top-1/2 h-[2px] ${isHomePage ? 'bg-white/40' : 'bg-indigo-300'}`}
-          initial={{ width: 0, opacity: 0 }}
-          animate={{ 
-            width: [0, 8, 0],
-            opacity: [0, 0.6, 0]
-          }}
-          transition={{ 
-            duration: 2,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-        />
-      </motion.div>
-      
-      {/* Brand text */}
-      <div className="flex items-baseline">
-        <motion.span 
-          className={`font-extrabold tracking-tight ${
-            isHomePage 
-              ? 'text-white drop-shadow-lg' 
-              : 'bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent'
-          }`}
-          whileHover={{ scale: 1.02 }}
-        >
-          Easy
-        </motion.span>
-        <motion.span 
-          className={`font-extrabold tracking-tight ${
-            isHomePage 
-              ? 'text-cyan-300 drop-shadow-lg' 
-              : 'bg-gradient-to-r from-cyan-500 to-indigo-500 bg-clip-text text-transparent'
-          }`}
-          whileHover={{ scale: 1.02 }}
-        >
-          Travel
-        </motion.span>
-      </div>
+      />
     </Link>
   );
 }
@@ -79,11 +23,25 @@ export function Layout({ children }: { children: ReactNode }) {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const profileRef = useRef<HTMLDivElement>(null);
 
   const handleLogout = async () => {
+    setIsProfileOpen(false);
     await logout();
     navigate('/');
   };
+
+  // Close profile dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (profileRef.current && !profileRef.current.contains(event.target as Node)) {
+        setIsProfileOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   // Check if we're on the home page for full-width layout
   const isHomePage = location.pathname === '/';
@@ -91,13 +49,13 @@ export function Layout({ children }: { children: ReactNode }) {
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
       {/* Header - absolute on home page, fixed on other pages */}
-      <header className={`px-4 py-4 transition-all duration-300 ${
+      <header className={`px-2 py-2 transition-all duration-300 ${
         isHomePage 
           ? 'absolute top-0 left-0 right-0 z-50 bg-transparent' 
           : 'fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200/50'
       }`}>
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <AnimatedLogo isHomePage={isHomePage} />
+        <div className="w-full flex items-center justify-between px-2">
+          <Logo />
           <nav className="flex items-center gap-6">
             {user ? (
               <>
@@ -111,16 +69,76 @@ export function Layout({ children }: { children: ReactNode }) {
                 >
                   My Trips
                 </Link>
-                <button
-                  onClick={handleLogout}
-                  className={`transition-colors text-sm font-medium ${
-                    isHomePage
-                      ? 'text-white/70 hover:text-red-300'
-                      : 'text-gray-500 hover:text-red-600'
+                <Link 
+                  to="/dashboard" 
+                  className={`transition-colors font-medium ${
+                    isHomePage 
+                      ? 'text-white/90 hover:text-white' 
+                      : 'text-gray-600 hover:text-indigo-600'
                   }`}
                 >
-                  Logout
-                </button>
+                  Dashboard
+                </Link>
+                
+                {/* Profile Dropdown */}
+                <div className="relative" ref={profileRef}>
+                  <button
+                    onClick={() => setIsProfileOpen(!isProfileOpen)}
+                    className={`flex items-center gap-2 px-3 py-2 rounded-full transition-all ${
+                      isHomePage
+                        ? 'bg-white/10 hover:bg-white/20 text-white'
+                        : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
+                    }`}
+                  >
+                    <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                      isHomePage
+                        ? 'bg-white/20'
+                        : 'bg-gradient-to-br from-indigo-500 to-purple-600'
+                    }`}>
+                      <User className={`w-4 h-4 ${isHomePage ? 'text-white' : 'text-white'}`} />
+                    </div>
+                    <ChevronDown className={`w-4 h-4 transition-transform ${isProfileOpen ? 'rotate-180' : ''}`} />
+                  </button>
+
+                  <AnimatePresence>
+                    {isProfileOpen && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                        transition={{ duration: 0.15 }}
+                        className="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden z-50"
+                      >
+                        {/* User Info */}
+                        <div className="px-4 py-3 border-b border-gray-100 bg-gray-50">
+                          <p className="font-semibold text-gray-900 truncate">
+                            {user.firstName} {user.lastName}
+                          </p>
+                          <p className="text-sm text-gray-500 truncate">{user.email}</p>
+                        </div>
+
+                        {/* Menu Items */}
+                        <div className="py-2">
+                          <Link
+                            to="/dashboard"
+                            onClick={() => setIsProfileOpen(false)}
+                            className="flex items-center gap-3 px-4 py-2.5 text-gray-700 hover:bg-gray-50 transition-colors"
+                          >
+                            <Settings className="w-4 h-4 text-gray-400" />
+                            <span>Settings</span>
+                          </Link>
+                          <button
+                            onClick={handleLogout}
+                            className="w-full flex items-center gap-3 px-4 py-2.5 text-red-600 hover:bg-red-50 transition-colors"
+                          >
+                            <LogOut className="w-4 h-4" />
+                            <span>Logout</span>
+                          </button>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
               </>
             ) : (
               <>
