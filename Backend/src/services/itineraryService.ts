@@ -3,7 +3,7 @@ import Ajv, { JSONSchemaType } from 'ajv';
 import { config } from '../config';
 
 // JSON schema for validation (as defined previously)
-const itinerarySchema: JSONSchemaType<any> = {
+const itinerarySchema = {
   type: 'object',
   properties: {
     itinerary: {
@@ -35,7 +35,7 @@ const itinerarySchema: JSONSchemaType<any> = {
   },
   required: ['itinerary'],
   additionalProperties: false
-};
+} as const;
 
 const ajv = new Ajv({ allErrors: true });
 const validate = ajv.compile(itinerarySchema);
@@ -69,9 +69,9 @@ export async function generateItinerary(
   for (let attempt = 0; attempt <= maxRetries; attempt++) {
     try {
       const response = await axios.post(
-        'https://api.openai.com/v1/chat/completions',
+        'https://api.groq.com/openai/v1/chat/completions',
         {
-          model: 'gpt-4-1106-preview',
+          model: 'mixtral-8x7b-32768',
           messages: [
             { role: 'system', content: SYSTEM_PROMPT },
             { role: 'user', content: USER_PROMPT(
@@ -88,7 +88,7 @@ export async function generateItinerary(
         },
         {
           headers: {
-            'Authorization': `Bearer ${config.openaiApiKey}`,
+            'Authorization': `Bearer ${config.groqApiKey}`,
             'Content-Type': 'application/json'
           },
           timeout: 30000
