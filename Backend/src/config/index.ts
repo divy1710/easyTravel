@@ -6,7 +6,7 @@ export const config = {
   nodeEnv: process.env.NODE_ENV || 'development',
   jwt: {
     secret: process.env.JWT_SECRET || '',
-    expiresIn: process.env.JWT_EXPIRES_IN || '1d',
+    expiresIn: (process.env.JWT_EXPIRES_IN || '1d') as string,
   },
   mongodbUri: process.env.MONGODB_URI || '',
   groqApiKey: process.env.GROQ_API_KEY || '',
