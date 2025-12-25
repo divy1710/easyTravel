@@ -39,3 +39,30 @@ export async function createTripWithAI(payload: CreateTripWithAIPayload) {
   const res = await api.post('/trips/create', payload);
   return res.data;
 }
+
+// Place operations
+export async function addPlace(tripId: string, dayIndex: number, placeData: any) {
+  const res = await api.post(`/trips/${tripId}/days/${dayIndex}/places`, placeData);
+  return res.data;
+}
+
+export async function removePlace(tripId: string, dayIndex: number, placeIndex: number) {
+  const res = await api.delete(`/trips/${tripId}/days/${dayIndex}/places/${placeIndex}`);
+  return res.data;
+}
+
+export async function togglePlaceCompletion(tripId: string, dayIndex: number, placeIndex: number) {
+  const res = await api.patch(`/trips/${tripId}/days/${dayIndex}/places/${placeIndex}/toggle`);
+  return res.data;
+}
+
+export async function updatePlace(tripId: string, dayIndex: number, placeIndex: number, placeData: any) {
+  const res = await api.put(`/trips/${tripId}/days/${dayIndex}/places/${placeIndex}`, placeData);
+  return res.data;
+}
+
+// Modify trip with AI using custom prompt
+export async function modifyTripWithAI(tripId: string, prompt: string) {
+  const res = await api.post(`/trips/${tripId}/modify`, { prompt });
+  return res.data;
+}

@@ -11,6 +11,12 @@ const PlaceSchema = new Schema({
   type: { type: String }, // e.g., restaurant, attraction
   notes: { type: String },
   aiRecommendation: { type: Boolean, default: false },
+  completed: { type: Boolean, default: false },
+  time: { type: String },
+  duration: { type: String },
+  travelMode: { type: String },
+  cost: { type: String },
+  description: { type: String },
 }, { _id: false });
 
 // --- Booking Schema ---

@@ -9,7 +9,12 @@ import {
   getTrips,
   getTripById,
   updateTrip,
-  deleteTrip
+  deleteTrip,
+  addPlace,
+  removePlace,
+  togglePlaceCompletion,
+  updatePlace,
+  modifyTripWithAI
 } from '../controllers/tripController';
 import { createTripWithAI } from '../controllers/createTripController';
 
@@ -36,5 +41,14 @@ router.get('/', getTrips);
 router.get('/:id', getTripById);
 router.put('/:id', validateBody(updateTripSchema), updateTrip);
 router.delete('/:id', deleteTrip);
+
+// AI modification
+router.post('/:id/modify', aiRateLimiter, modifyTripWithAI);
+
+// Place operations
+router.post('/:id/days/:dayIndex/places', addPlace);
+router.delete('/:id/days/:dayIndex/places/:placeIndex', removePlace);
+router.patch('/:id/days/:dayIndex/places/:placeIndex/toggle', togglePlaceCompletion);
+router.put('/:id/days/:dayIndex/places/:placeIndex', updatePlace);
 
 export default router;
