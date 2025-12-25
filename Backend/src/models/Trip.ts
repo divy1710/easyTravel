@@ -1,5 +1,31 @@
 import mongoose, { Schema, Document, Types } from 'mongoose';
 
+// --- Place Interface ---
+export interface IPlace {
+  name: string;
+  location: {
+    type: string;
+    coordinates: number[];
+  };
+  type?: string;
+  notes?: string;
+  aiRecommendation?: boolean;
+  completed?: boolean;
+  time?: string;
+  duration?: string;
+  travelMode?: string;
+  cost?: string;
+  description?: string;
+}
+
+// --- Day Interface ---
+export interface IDay {
+  date: Date;
+  places: IPlace[];
+  notes?: string;
+  dailyCost?: string;
+}
+
 // --- Place Schema ---
 // Embedded in Day for fast access, as places are unique per trip day and not reused.
 const PlaceSchema = new Schema({
@@ -45,6 +71,7 @@ const DaySchema = new Schema({
   date: { type: Date, required: true },
   places: [PlaceSchema],
   notes: { type: String },
+  dailyCost: { type: String },
 }, { _id: false });
 
 // --- Trip Schema ---
@@ -54,10 +81,19 @@ export interface ITrip extends Document {
   title: string;
   startDate: Date;
   endDate: Date;
-  days: typeof DaySchema[];
+  days: IDay[];
   bookings: Types.ObjectId[];
   createdAt: Date;
   updatedAt: Date;
+  destination?: string;
+  metadata?: {
+    numberOfDays?: number;
+    budget?: string;
+    travelers?: number;
+    preferences?: string[];
+  };
+  totalEstimatedCost?: string;
+  currency?: string;
 }
 
 const TripSchema = new Schema<ITrip>({
@@ -67,6 +103,15 @@ const TripSchema = new Schema<ITrip>({
   endDate: { type: Date, required: true },
   days: [DaySchema], // Embedded for fast itinerary reads
   bookings: [{ type: Schema.Types.ObjectId, ref: 'Booking' }], // Referenced for flexibility
+  destination: { type: String },
+  metadata: {
+    numberOfDays: { type: Number },
+    budget: { type: String },
+    travelers: { type: Number },
+    preferences: [{ type: String }],
+  },
+  totalEstimatedCost: { type: String },
+  currency: { type: String },
 }, { timestamps: true });
 
 TripSchema.index({ user: 1, startDate: 1 }); // For user trip queries

@@ -2,8 +2,10 @@ import { Router } from 'express';
 import bcrypt from 'bcryptjs';
 import jwt, { SignOptions } from 'jsonwebtoken';
 import User from '../../../models/User';
+import { OTP } from '../../../models/OTP';
 import { config } from '../../../config';
 import { authenticateJWT, AuthRequest } from '../middlewares/auth';
+import { generateOTP, sendOTPEmail } from '../../../services/emailService';
 
 const router = Router();
 
@@ -24,19 +26,32 @@ const jwtSignOptions: SignOptions = {
 // Signup
 router.post('/signup', async (req, res, next) => {
   try {
-    const { email, password, firstName, lastName, phone } = req.body;
+    const { email, password, firstName, lastName, phone, isVerified } = req.body;
     if (!email || !password) return res.status(400).json({ error: 'Email and password required' });
     const existing = await User.findOne({ email });
     if (existing) return res.status(409).json({ error: 'Email already in use' });
     const hash = await bcrypt.hash(password, 12);
-    const user = await User.create({ email, password: hash, firstName, lastName, phone });
+    const user = await User.create({ 
+      email, 
+      password: hash, 
+      firstName, 
+      lastName, 
+      phone,
+      isVerified: isVerified || false 
+    });
     const token = jwt.sign({ id: user._id, email: user.email }, config.jwt.secret, jwtSignOptions);
     
     // Set HTTP-only cookie
     res.cookie('authToken', token, cookieOptions);
     
     res.status(201).json({ 
-      user: { email: user.email, firstName: user.firstName, lastName: user.lastName, createdAt: user.createdAt },
+      user: { 
+        email: user.email, 
+        firstName: user.firstName, 
+        lastName: user.lastName, 
+        isVerified: user.isVerified,
+        createdAt: user.createdAt 
+      },
       message: 'Signup successful'
     });
   } catch (err) { next(err); }
@@ -101,6 +116,66 @@ router.post('/guest', (req, res) => {
   res.cookie('authToken', token, cookieOptions);
   
   res.json({ user: { guest: true }, message: 'Guest session created' });
+});
+
+// Send OTP for email verification
+router.post('/send-otp', async (req, res, next) => {
+  try {
+    const { email } = req.body;
+    if (!email) return res.status(400).json({ error: 'Email is required' });
+
+    // Check if user already exists
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(409).json({ error: 'Email already registered' });
+    }
+
+    // Generate OTP
+    const otp = generateOTP();
+    const expiresAt = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes
+
+    // Delete any existing OTP for this email
+    await OTP.deleteMany({ email });
+
+    // Save new OTP
+    await OTP.create({ email, otp, expiresAt });
+
+    // Send OTP via email
+    await sendOTPEmail(email, otp);
+
+    res.json({ message: 'OTP sent successfully to your email' });
+  } catch (err) {
+    next(err);
+  }
+});
+
+// Verify OTP
+router.post('/verify-otp', async (req, res, next) => {
+  try {
+    const { email, otp } = req.body;
+    if (!email || !otp) {
+      return res.status(400).json({ error: 'Email and OTP are required' });
+    }
+
+    // Find OTP record
+    const otpRecord = await OTP.findOne({ email, otp });
+    if (!otpRecord) {
+      return res.status(401).json({ error: 'Invalid OTP' });
+    }
+
+    // Check if OTP is expired
+    if (otpRecord.expiresAt < new Date()) {
+      await OTP.deleteOne({ _id: otpRecord._id });
+      return res.status(401).json({ error: 'OTP has expired' });
+    }
+
+    // Delete OTP after successful verification
+    await OTP.deleteOne({ _id: otpRecord._id });
+
+    res.json({ message: 'Email verified successfully' });
+  } catch (err) {
+    next(err);
+  }
 });
 
 export default router;
