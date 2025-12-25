@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import bcrypt from 'bcryptjs';
-import jwt, { Secret } from 'jsonwebtoken';
+import jwt, { SignOptions } from 'jsonwebtoken';
 import User from '../../../models/User';
 import { config } from '../../../config';
 import { authenticateJWT, AuthRequest } from '../middlewares/auth';
@@ -16,6 +16,11 @@ const cookieOptions = {
   path: '/',
 };
 
+// JWT sign options
+const jwtSignOptions: SignOptions = {
+  expiresIn: config.jwt.expiresIn,
+};
+
 // Signup
 router.post('/signup', async (req, res, next) => {
   try {
@@ -25,7 +30,7 @@ router.post('/signup', async (req, res, next) => {
     if (existing) return res.status(409).json({ error: 'Email already in use' });
     const hash = await bcrypt.hash(password, 12);
     const user = await User.create({ email, password: hash, firstName, lastName, phone });
-    const token = jwt.sign({ id: user._id, email: user.email }, config.jwt.secret as Secret, { expiresIn: config.jwt.expiresIn });
+    const token = jwt.sign({ id: user._id, email: user.email }, config.jwt.secret, jwtSignOptions);
     
     // Set HTTP-only cookie
     res.cookie('authToken', token, cookieOptions);
@@ -46,7 +51,7 @@ router.post('/login', async (req, res, next) => {
     if (!user) return res.status(401).json({ error: 'Invalid credentials' });
     const valid = await bcrypt.compare(password, user.password);
     if (!valid) return res.status(401).json({ error: 'Invalid credentials' });
-    const token = jwt.sign({ id: user._id, email: user.email }, config.jwt.secret as Secret, { expiresIn: config.jwt.expiresIn });
+    const token = jwt.sign({ id: user._id, email: user.email }, config.jwt.secret, jwtSignOptions);
     
     // Set HTTP-only cookie
     res.cookie('authToken', token, cookieOptions);
@@ -90,7 +95,7 @@ router.get('/me', authenticateJWT, async (req: AuthRequest, res, next) => {
 // Guest login (no DB record)
 router.post('/guest', (req, res) => {
   const guestPayload = { guest: true };
-  const token = jwt.sign(guestPayload, config.jwt.secret as Secret, { expiresIn: config.jwt.expiresIn });
+  const token = jwt.sign(guestPayload, config.jwt.secret, jwtSignOptions);
   
   // Set HTTP-only cookie for guest
   res.cookie('authToken', token, cookieOptions);
