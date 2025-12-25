@@ -10,8 +10,8 @@ const router = Router();
 // Cookie options for HTTP-only secure cookies
 const cookieOptions = {
   httpOnly: true, // Prevents XSS attacks - JS can't access the cookie
-  secure: config.nodeEnv === 'production', // Only send over HTTPS in production
-  sameSite: 'lax' as const, // CSRF protection
+  secure: true, // Always use HTTPS for cookies (required for sameSite: 'none')
+  sameSite: config.nodeEnv === 'production' ? 'none' as const : 'lax' as const, // 'none' allows cross-origin cookies
   maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days in milliseconds
   path: '/',
 };
