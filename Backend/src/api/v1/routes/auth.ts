@@ -18,7 +18,7 @@ const cookieOptions = {
 
 // JWT sign options
 const jwtSignOptions: SignOptions = {
-  expiresIn: config.jwt.expiresIn,
+  expiresIn: config.jwt.expiresIn as string,
 };
 
 // Signup
