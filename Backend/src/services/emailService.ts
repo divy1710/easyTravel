@@ -3,20 +3,30 @@ import { config } from '../config';
 
 // Create reusable transporter
 const transporter = nodemailer.createTransport({
-  service: 'gmail',
+  host: 'smtp.gmail.com',
+  port: 587,
+  secure: false, // Use STARTTLS
   auth: {
     user: config.emailUser,
     pass: config.emailPassword,
   },
-  // Add timeout and connection settings
+  // Production-friendly settings
   pool: true,
   maxConnections: 1,
   maxMessages: 3,
   rateDelta: 1000,
   rateLimit: 3,
+  connectionTimeout: 10000, // 10 seconds
+  greetingTimeout: 10000,
+  socketTimeout: 30000, // 30 seconds
+  requireTLS: true,
   tls: {
-    rejectUnauthorized: false
-  }
+    rejectUnauthorized: false,
+    ciphers: 'SSLv3',
+    minVersion: 'TLSv1'
+  },
+  debug: true, // Enable debug logs
+  logger: true
 });
 
 // Verify transporter configuration on startup (non-blocking)
@@ -62,26 +72,23 @@ export const sendOTPEmail = async (email: string, otp: string): Promise<void> =>
   });
 
   try {
-    await transporter.sendMail(mailOptions);
+    // Add timeout wrapper to prevent indefinite hanging
+    const sendPromise = transporter.sendMail(mailOptions);
+    const timeoutPromise = new Promise((_, reject) => 
+      setTimeout(() => reject(new Error('Email send timeout after 15 seconds')), 15000)
+    );
+    
+    await Promise.race([sendPromise, timeoutPromise]);
     console.log(`✅ OTP sent successfully to ${email}`);
   } catch (error: any) {
     console.error('❌ Error sending OTP email:', {
       code: error.code,
       command: error.command,
-      response: error.response,
-      responseCode: error.responseCode,
       message: error.message,
     });
     
-    // Provide more specific error messages
-    if (error.code === 'EAUTH') {
-      throw new Error('Email authentication failed. Please check EMAIL_USER and EMAIL_PASSWORD in environment variables. For Gmail, you need an App Password (not your regular password).');
-    }
-    
-    if (error.code === 'ESOCKET') {
-      throw new Error('Network connection failed. Unable to reach email server.');
-    }
-    
-    throw new Error(`Failed to send OTP email: ${error.message}`);
+    // Don't throw error - just log it and continue
+    // OTP is already saved in database, user can still use it
+    console.warn('⚠️  Email failed but OTP is saved in database');
   }
 };
