@@ -44,6 +44,13 @@ export const sendOTPEmail = async (email: string, otp: string): Promise<void> =>
     `,
   };
 
+  // Log email configuration (without showing password)
+  console.log('📧 Attempting to send email:', {
+    from: config.emailUser,
+    to: email,
+    hasAuth: !!config.emailUser && !!config.emailPassword,
+  });
+
   try {
     await transporter.sendMail(mailOptions);
     console.log(`✅ OTP sent successfully to ${email}`);
@@ -53,11 +60,16 @@ export const sendOTPEmail = async (email: string, otp: string): Promise<void> =>
       command: error.command,
       response: error.response,
       responseCode: error.responseCode,
+      message: error.message,
     });
     
     // Provide more specific error messages
     if (error.code === 'EAUTH') {
-      throw new Error('Email authentication failed. Please check EMAIL_USER and EMAIL_PASSWORD in .env file. For Gmail, you need an App Password (not your regular password).');
+      throw new Error('Email authentication failed. Please check EMAIL_USER and EMAIL_PASSWORD in environment variables. For Gmail, you need an App Password (not your regular password).');
+    }
+    
+    if (error.code === 'ESOCKET') {
+      throw new Error('Network connection failed. Unable to reach email server.');
     }
     
     throw new Error(`Failed to send OTP email: ${error.message}`);

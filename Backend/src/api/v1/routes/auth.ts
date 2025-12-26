@@ -146,9 +146,19 @@ router.post('/send-otp', async (req, res, next) => {
     await OTP.create({ email, otp, expiresAt });
 
     // Send OTP via email
-    await sendOTPEmail(email, otp);
-
-    res.json({ message: 'OTP sent successfully to your email' });
+    try {
+      await sendOTPEmail(email, otp);
+      res.json({ message: 'OTP sent successfully to your email' });
+    } catch (emailError: any) {
+      // OTP is saved in DB, but email failed - still allow user to continue
+      console.error('Email sending failed, but OTP saved:', emailError.message);
+      
+      // Return success but with a warning
+      res.json({ 
+        message: 'OTP generated. If you don\'t receive the email, please contact support.',
+        warning: 'Email service temporarily unavailable'
+      });
+    }
   } catch (err) {
     next(err);
   }
