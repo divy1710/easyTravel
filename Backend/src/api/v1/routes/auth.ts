@@ -118,7 +118,7 @@ router.post('/guest', (req, res) => {
   const token = jwt.sign(guestPayload, config.jwt.secret, jwtSignOptions);
   
   // Set HTTP-only cookie for guest
-  res.cookie('authToken', token, cookieOptions);
+  res.cookie('authToken', token, getCookieOptions());
   
   res.json({ user: { guest: true }, message: 'Guest session created' });
 });
