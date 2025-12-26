@@ -3,11 +3,21 @@ import { config } from '../config';
 
 // Create reusable transporter
 const transporter = nodemailer.createTransport({
-  service: 'gmail', // You can change this to another service
+  service: 'gmail',
   auth: {
     user: config.emailUser,
     pass: config.emailPassword,
   },
+});
+
+// Verify transporter configuration on startup
+transporter.verify((error, success) => {
+  if (error) {
+    console.error('❌ Email transporter verification failed:', error.message);
+    console.error('Please check your EMAIL_USER and EMAIL_PASSWORD in .env file');
+  } else {
+    console.log('✅ Email server is ready to send messages');
+  }
 });
 
 // Generate 6-digit OTP
@@ -36,9 +46,20 @@ export const sendOTPEmail = async (email: string, otp: string): Promise<void> =>
 
   try {
     await transporter.sendMail(mailOptions);
-    console.log(`OTP sent successfully to ${email}`);
-  } catch (error) {
-    console.error('Error sending OTP email:', error);
-    throw new Error('Failed to send OTP email');
+    console.log(`✅ OTP sent successfully to ${email}`);
+  } catch (error: any) {
+    console.error('❌ Error sending OTP email:', {
+      code: error.code,
+      command: error.command,
+      response: error.response,
+      responseCode: error.responseCode,
+    });
+    
+    // Provide more specific error messages
+    if (error.code === 'EAUTH') {
+      throw new Error('Email authentication failed. Please check EMAIL_USER and EMAIL_PASSWORD in .env file. For Gmail, you need an App Password (not your regular password).');
+    }
+    
+    throw new Error(`Failed to send OTP email: ${error.message}`);
   }
 };
