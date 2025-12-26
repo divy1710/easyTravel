@@ -12,7 +12,7 @@ const app = express();
 // Middleware
 app.use(cors({
   origin: config.nodeEnv === 'production' 
-    ? ['https://easy-travel-kappa.vercel.app']
+    ? ['https://www.primetravel.in', 'https://easy-travel-kappa.vercel.app']
     : ['http://localhost:5173', 'http://localhost:3000'],
   credentials: true, // Allow cookies to be sent
 }));
