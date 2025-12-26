@@ -32,6 +32,21 @@ const limiter = rateLimit({
 
 app.use(limiter);
 
+// Root route for health checks
+app.get('/', (req: any, res: any) => {
+  res.json({ 
+    status: 'ok', 
+    message: 'EasyTravel API is running',
+    version: 'v1',
+    endpoints: {
+      health: '/api/v1/health',
+      auth: '/api/v1/auth',
+      trips: '/api/v1/trips',
+      places: '/api/v1/places'
+    }
+  });
+});
+
 // API Versioning
 app.use('/api/v1', v1Routes);
 

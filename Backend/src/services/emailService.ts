@@ -8,17 +8,27 @@ const transporter = nodemailer.createTransport({
     user: config.emailUser,
     pass: config.emailPassword,
   },
-});
-
-// Verify transporter configuration on startup
-transporter.verify((error, success) => {
-  if (error) {
-    console.error('❌ Email transporter verification failed:', error.message);
-    console.error('Please check your EMAIL_USER and EMAIL_PASSWORD in .env file');
-  } else {
-    console.log('✅ Email server is ready to send messages');
+  // Add timeout and connection settings
+  pool: true,
+  maxConnections: 1,
+  maxMessages: 3,
+  rateDelta: 1000,
+  rateLimit: 3,
+  tls: {
+    rejectUnauthorized: false
   }
 });
+
+// Verify transporter configuration on startup (non-blocking)
+transporter.verify()
+  .then(() => {
+    console.log('✅ Email server is ready to send messages');
+  })
+  .catch((error) => {
+    console.warn('⚠️  Email transporter verification failed:', error.message);
+    console.warn('Email functionality may not work. OTP will still be saved to database.');
+    console.warn('For Gmail: Make sure you have 2FA enabled and use an App Password');
+  });
 
 // Generate 6-digit OTP
 export const generateOTP = (): string => {
