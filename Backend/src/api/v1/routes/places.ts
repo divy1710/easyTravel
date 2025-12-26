@@ -17,7 +17,7 @@ interface PlaceSuggestion {
  * GET /api/v1/places/search?q=query
  * Search for cities/places using OpenStreetMap Nominatim API
  */
-router.get('/search', async (req, res) => {
+router.get('/search', async (req: any, res: any) => {
   try {
     const query = req.query.q as string;
     const limit = parseInt(req.query.limit as string) || 5;

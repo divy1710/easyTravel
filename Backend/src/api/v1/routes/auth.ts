@@ -29,7 +29,7 @@ const jwtSignOptions: SignOptions = {
 };
 
 // Signup
-router.post('/signup', async (req, res, next) => {
+router.post('/signup', async (req: any, res: any, next: any) => {
   try {
     const { email, password, firstName, lastName, phone, isVerified } = req.body;
     if (!email || !password) return res.status(400).json({ error: 'Email and password required' });
@@ -63,7 +63,7 @@ router.post('/signup', async (req, res, next) => {
 });
 
 // Login
-router.post('/login', async (req, res, next) => {
+router.post('/login', async (req: any, res: any, next: any) => {
   try {
     const { email, password } = req.body;
     if (!email || !password) return res.status(400).json({ error: 'Email and password required' });
@@ -84,13 +84,13 @@ router.post('/login', async (req, res, next) => {
 });
 
 // Logout - clear the cookie
-router.post('/logout', (req, res) => {
+router.post('/logout', (req: any, res: any) => {
   res.clearCookie('authToken', { path: '/' });
   res.json({ message: 'Logged out successfully' });
 });
 
 // Get current user (check if authenticated)
-router.get('/me', authenticateJWT, async (req: AuthRequest, res, next) => {
+router.get('/me', authenticateJWT, async (req: AuthRequest, res: any, next: any) => {
   try {
     const user = await User.findById(req.user.id).select('-password');
     if (!user) {
@@ -113,7 +113,7 @@ router.get('/me', authenticateJWT, async (req: AuthRequest, res, next) => {
 });
 
 // Guest login (no DB record)
-router.post('/guest', (req, res) => {
+router.post('/guest', (req: any, res: any) => {
   const guestPayload = { guest: true };
   const token = jwt.sign(guestPayload, config.jwt.secret, jwtSignOptions);
   
@@ -124,7 +124,7 @@ router.post('/guest', (req, res) => {
 });
 
 // Send OTP for email verification
-router.post('/send-otp', async (req, res, next) => {
+router.post('/send-otp', async (req: any, res: any, next: any) => {
   try {
     const { email } = req.body;
     if (!email) return res.status(400).json({ error: 'Email is required' });
@@ -165,7 +165,7 @@ router.post('/send-otp', async (req, res, next) => {
 });
 
 // Verify OTP
-router.post('/verify-otp', async (req, res, next) => {
+router.post('/verify-otp', async (req: any, res: any, next: any) => {
   try {
     const { email, otp } = req.body;
     if (!email || !otp) {

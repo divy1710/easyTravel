@@ -13,7 +13,7 @@ router.use('/places', placesRoutes);
 // import { authenticateJWT } from '../middlewares/auth';
 // router.get('/protected', authenticateJWT, (req, res) => res.json({ ok: true }));
 
-router.get('/health', (req, res) => {
+router.get('/health', (req: any, res: any) => {
   res.json({ status: 'ok' });
 });
 
