@@ -10,12 +10,17 @@ import { generateOTP, sendOTPEmail } from '../../../services/emailService';
 const router = Router();
 
 // Cookie options for HTTP-only secure cookies
-const cookieOptions = {
-  httpOnly: true, // Prevents XSS attacks - JS can't access the cookie
-  secure: true, // Always use HTTPS for cookies (required for sameSite: 'none')
-  sameSite: config.nodeEnv === 'production' ? 'none' as const : 'lax' as const, // 'none' allows cross-origin cookies
-  maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days in milliseconds
-  path: '/',
+const getCookieOptions = () => {
+  const isProduction = config.nodeEnv === 'production';
+  
+  return {
+    httpOnly: true, // Prevents XSS attacks - JS can't access the cookie
+    secure: isProduction, // HTTPS only in production
+    sameSite: isProduction ? 'none' as const : 'lax' as const, // 'none' allows cross-origin cookies
+    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days in milliseconds
+    path: '/',
+    // Don't set domain - let it default to the request domain
+  };
 };
 
 // JWT sign options
@@ -42,7 +47,7 @@ router.post('/signup', async (req, res, next) => {
     const token = jwt.sign({ id: user._id, email: user.email }, config.jwt.secret, jwtSignOptions);
     
     // Set HTTP-only cookie
-    res.cookie('authToken', token, cookieOptions);
+    res.cookie('authToken', token, getCookieOptions());
     
     res.status(201).json({ 
       user: { 
@@ -69,7 +74,7 @@ router.post('/login', async (req, res, next) => {
     const token = jwt.sign({ id: user._id, email: user.email }, config.jwt.secret, jwtSignOptions);
     
     // Set HTTP-only cookie
-    res.cookie('authToken', token, cookieOptions);
+    res.cookie('authToken', token, getCookieOptions());
     
     res.json({ 
       user: { email: user.email, firstName: user.firstName, lastName: user.lastName, createdAt: user.createdAt },
