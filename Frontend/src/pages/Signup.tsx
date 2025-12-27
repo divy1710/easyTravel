@@ -146,42 +146,6 @@ export default function Signup() {
                 placeholder="Email address"
                 value={formData.email}
                 onChange={handleChange}
-                <input
-                  type="text"
-                  name="firstName"
-                  className="w-full bg-white/10 border border-white/20 rounded-xl py-3 pl-10 pr-3 text-white placeholder-white/40 focus:outline-none focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20 transition-all text-sm"
-                  placeholder="First name"
-                  value={formData.firstName}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-
-              {/* Last Name */}
-              <div className="relative">
-                <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
-                <input
-                  type="text"
-                  name="lastName"
-                  className="w-full bg-white/10 border border-white/20 rounded-xl py-3 pl-10 pr-3 text-white placeholder-white/40 focus:outline-none focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20 transition-all text-sm"
-                  placeholder="Last name"
-                  value={formData.lastName}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-            </div>
-
-            {/* Email Input */}
-            <div className="relative">
-              <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
-              <input
-                type="email"
-                name="email"
-                className="w-full bg-white/10 border border-white/20 rounded-xl py-3 pl-10 pr-3 text-white placeholder-white/40 focus:outline-none focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20 transition-all text-sm"
-                placeholder="Email address"
-                value={formData.email}
-                onChange={handleChange}
                 required
               />
             </div>
