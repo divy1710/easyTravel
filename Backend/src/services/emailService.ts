@@ -2,10 +2,12 @@ import nodemailer from 'nodemailer';
 import { config } from '../config';
 
 // Create reusable transporter
+// Note: Port 465 with SSL works better on cloud platforms like Render
+// Port 587 (STARTTLS) is often blocked by cloud providers
 const transporter = nodemailer.createTransport({
   host: 'smtp.gmail.com',
-  port: 587,
-  secure: false, // Use STARTTLS
+  port: 465, // Use SSL port instead of 587 (STARTTLS) - works on Render
+  secure: true, // Use SSL/TLS from the start
   auth: {
     user: config.emailUser,
     pass: config.emailPassword,
@@ -19,11 +21,10 @@ const transporter = nodemailer.createTransport({
   connectionTimeout: 10000, // 10 seconds
   greetingTimeout: 10000,
   socketTimeout: 30000, // 30 seconds
-  requireTLS: true,
   tls: {
-    rejectUnauthorized: false,
-    ciphers: 'SSLv3',
-    minVersion: 'TLSv1'
+    // Allow self-signed certificates in development
+    rejectUnauthorized: config.nodeEnv === 'production',
+    minVersion: 'TLSv1.2'
   },
   debug: true, // Enable debug logs
   logger: true
