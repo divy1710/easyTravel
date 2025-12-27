@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { signup } from '../api/auth';
+import { signup, googleLogin } from '../api/auth';
 import { useAuth } from '../context/AuthContext';
 import { Mail, Lock, UserPlus, Compass, Check, User, Phone, Eye, EyeOff } from 'lucide-react';
+import GoogleLoginButton from '../components/GoogleLoginButton';
 
 export default function Signup() {
   const [formData, setFormData] = useState({
@@ -58,6 +59,24 @@ export default function Signup() {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleGoogleSuccess = async (credential: string) => {
+    setLoading(true);
+    setError(null);
+    try {
+      const res = await googleLogin(credential);
+      login(res.user);
+      navigate('/dashboard');
+    } catch (err: any) {
+      setError(err.response?.data?.error || 'Google signup failed');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleGoogleError = () => {
+    setError('Google signup failed. Please try again.');
   };
 
   const benefits = [
@@ -228,6 +247,20 @@ export default function Signup() {
               {loading ? 'Creating account...' : 'Create Account'}
             </button>
           </form>
+
+          {/* Divider */}
+          <div className="my-5 flex items-center gap-3">
+            <div className="flex-1 h-px bg-white/20"></div>
+            <span className="text-white/40 text-xs">or</span>
+            <div className="flex-1 h-px bg-white/20"></div>
+          </div>
+
+          {/* Google Signup Button */}
+          <GoogleLoginButton
+            onSuccess={handleGoogleSuccess}
+            onError={handleGoogleError}
+            text="signup_with"
+          />
 
           {/* Terms */}
           <p className="mt-4 text-center text-white/40 text-xs">
