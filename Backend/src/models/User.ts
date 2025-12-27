@@ -10,7 +10,6 @@ export interface IUser extends Document {
   phone?: string;
   googleId?: string;
   avatar?: string;
-  isVerified: boolean;
   trips: Types.ObjectId[];
   bookings: Types.ObjectId[];
   createdAt: Date;
@@ -25,7 +24,6 @@ const UserSchema = new Schema<IUser>({
   phone: { type: String, trim: true },
   googleId: { type: String, unique: true, sparse: true },
   avatar: { type: String },
-  isVerified: { type: Boolean, default: false },
   trips: [{ type: Schema.Types.ObjectId, ref: 'Trip' }], // Reference trips for user
   bookings: [{ type: Schema.Types.ObjectId, ref: 'Booking' }], // Reference bookings for user
 }, { timestamps: true });

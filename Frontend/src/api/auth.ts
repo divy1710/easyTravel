@@ -11,19 +11,8 @@ export async function signup(data: {
   firstName?: string;
   lastName?: string;
   phone?: string;
-  isVerified?: boolean;
 }) {
   const res = await api.post('/auth/signup', data);
-  return res.data;
-}
-
-export async function sendOTP(email: string) {
-  const res = await api.post('/auth/send-otp', { email });
-  return res.data;
-}
-
-export async function verifyOTP(email: string, otp: string) {
-  const res = await api.post('/auth/verify-otp', { email, otp });
   return res.data;
 }
 

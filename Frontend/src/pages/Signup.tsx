@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { signup, sendOTP, verifyOTP } from '../api/auth';
+import { signup } from '../api/auth';
 import { useAuth } from '../context/AuthContext';
-import { Mail, Lock, UserPlus, Compass, Check, User, Phone, Eye, EyeOff, ShieldCheck } from 'lucide-react';
+import { Mail, Lock, UserPlus, Compass, Check, User, Phone, Eye, EyeOff } from 'lucide-react';
 
 export default function Signup() {
-  const [step, setStep] = useState<'form' | 'otp'>('form');
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -14,12 +13,10 @@ export default function Signup() {
     password: '',
     confirmPassword: ''
   });
-  const [otp, setOtp] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  const [otpSent, setOtpSent] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
 
@@ -27,7 +24,7 @@ export default function Signup() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSendOTP = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
@@ -46,52 +43,18 @@ export default function Signup() {
     }
 
     try {
-      await sendOTP(formData.email);
-      setOtpSent(true);
-      setStep('otp');
-    } catch (err: any) {
-      setError(err.response?.data?.error || 'Failed to send OTP');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleVerifyOTP = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    setError(null);
-
-    try {
-      await verifyOTP(formData.email, otp);
-      
-      // After OTP verification, create the user account
       const res = await signup({
         email: formData.email,
         password: formData.password,
         firstName: formData.firstName,
         lastName: formData.lastName,
         phone: formData.phone,
-        isVerified: true,
       });
       
       login(res.user);
       navigate('/dashboard');
     } catch (err: any) {
-      setError(err.response?.data?.error || 'Invalid OTP');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleResendOTP = async () => {
-    setLoading(true);
-    setError(null);
-    try {
-      await sendOTP(formData.email);
-      setError(null);
-      alert('OTP resent successfully!');
-    } catch (err: any) {
-      setError(err.response?.data?.error || 'Failed to resend OTP');
+      setError(err.response?.data?.error || 'Signup failed');
     } finally {
       setLoading(false);
     }
@@ -141,13 +104,48 @@ export default function Signup() {
           </div>
 
           {/* Form */}
-          {step === 'form' ? (
-            <form onSubmit={handleSendOTP} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-4">
             {/* Name Row */}
             <div className="grid grid-cols-2 gap-3">
               {/* First Name */}
               <div className="relative">
                 <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
+                <input
+                  type="text"
+                  name="firstName"
+                  className="w-full bg-white/10 border border-white/20 rounded-xl py-3 pl-10 pr-3 text-white placeholder-white/40 focus:outline-none focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20 transition-all text-sm"
+                  placeholder="First name"
+                  value={formData.firstName}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+
+              {/* Last Name */}
+              <div className="relative">
+                <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
+                <input
+                  type="text"
+                  name="lastName"
+                  className="w-full bg-white/10 border border-white/20 rounded-xl py-3 pl-10 pr-3 text-white placeholder-white/40 focus:outline-none focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20 transition-all text-sm"
+                  placeholder="Last name"
+                  value={formData.lastName}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+            </div>
+
+            {/* Email Input */}
+            <div className="relative">
+              <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
+              <input
+                type="email"
+                name="email"
+                className="w-full bg-white/10 border border-white/20 rounded-xl py-3 pl-10 pr-3 text-white placeholder-white/40 focus:outline-none focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20 transition-all text-sm"
+                placeholder="Email address"
+                value={formData.email}
+                onChange={handleChange}
                 <input
                   type="text"
                   name="firstName"
@@ -262,73 +260,10 @@ export default function Signup() {
               className="w-full bg-gradient-to-r from-cyan-500 to-indigo-600 text-white py-3.5 rounded-xl font-semibold flex items-center justify-center gap-2 hover:shadow-lg hover:shadow-cyan-500/30 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
               disabled={loading}
             >
-              <Mail className="w-4 h-4" />
-              {loading ? 'Sending OTP...' : 'Send Verification Code'}
+              <UserPlus className="w-4 h-4" />
+              {loading ? 'Creating account...' : 'Create Account'}
             </button>
           </form>
-          ) : (
-            <form onSubmit={handleVerifyOTP} className="space-y-4">
-              {/* OTP Info */}
-              <div className="text-center mb-4">
-                <ShieldCheck className="w-12 h-12 text-cyan-400 mx-auto mb-3" />
-                <p className="text-white/80 text-sm">
-                  We've sent a verification code to
-                </p>
-                <p className="text-white font-semibold">{formData.email}</p>
-              </div>
-
-              {/* OTP Input */}
-              <div className="relative">
-                <input
-                  type="text"
-                  className="w-full bg-white/10 border border-white/20 rounded-xl py-4 px-4 text-white text-center text-2xl tracking-widest placeholder-white/40 focus:outline-none focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20 transition-all"
-                  placeholder="000000"
-                  value={otp}
-                  onChange={(e) => setOtp(e.target.value.replace(/\D/g, '').slice(0, 6))}
-                  maxLength={6}
-                  required
-                />
-              </div>
-
-              {/* Error Message */}
-              {error && (
-                <div className="bg-red-500/20 border border-red-500/30 rounded-xl px-4 py-3 text-red-200 text-sm">
-                  {error}
-                </div>
-              )}
-
-              {/* Verify Button */}
-              <button
-                type="submit"
-                className="w-full bg-gradient-to-r from-cyan-500 to-indigo-600 text-white py-3.5 rounded-xl font-semibold flex items-center justify-center gap-2 hover:shadow-lg hover:shadow-cyan-500/30 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
-                disabled={loading || otp.length !== 6}
-              >
-                <ShieldCheck className="w-4 h-4" />
-                {loading ? 'Verifying...' : 'Verify & Create Account'}
-              </button>
-
-              {/* Resend OTP */}
-              <div className="text-center">
-                <button
-                  type="button"
-                  onClick={handleResendOTP}
-                  className="text-cyan-400 hover:text-cyan-300 text-sm transition-colors"
-                  disabled={loading}
-                >
-                  Resend verification code
-                </button>
-              </div>
-
-              {/* Back Button */}
-              <button
-                type="button"
-                onClick={() => setStep('form')}
-                className="w-full text-white/60 hover:text-white py-2 text-sm transition-colors"
-              >
-                ← Back to form
-              </button>
-            </form>
-          )}
 
           {/* Terms */}
           <p className="mt-4 text-center text-white/40 text-xs">
