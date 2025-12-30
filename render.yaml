@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: easytravel-backend
+    name: primetravel-backend
     runtime: node
     buildCommand: cd Backend && npm install && npm run build
     startCommand: cd Backend && npm start

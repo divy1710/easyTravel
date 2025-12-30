@@ -44,7 +44,7 @@ router.get('/search', async (req: any, res: any) => {
         'accept-language': 'en'
       },
       headers: {
-        'User-Agent': 'EasyTravel/1.0' // Required by Nominatim ToS
+        'User-Agent': 'PrimeTravel/1.0' // Required by Nominatim ToS
       },
       timeout: 5000
     });

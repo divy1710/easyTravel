@@ -11,7 +11,7 @@
 2. **Create/Select Project**
    - Click project dropdown (top left)
    - Click "New Project" or select existing
-   - Name it "EasyTravel"
+   - Name it "PrimeTravel"
 
 3. **Enable Required API**
    - Go to "APIs & Services" → "Library"
@@ -22,7 +22,7 @@
    - Go to "APIs & Services" → "OAuth consent screen"
    - Choose "External"
    - Fill in:
-     - App name: `EasyTravel`
+     - App name: `PrimeTravel`
      - User support email: Your email
      - Developer contact: Your email
    - Click "Save and Continue" through all steps
@@ -31,7 +31,7 @@
    - Go to "APIs & Services" → "Credentials"
    - Click "+ Create Credentials" → "OAuth client ID"
    - Application type: **Web application**
-   - Name: `EasyTravel Web`
+   - Name: `PrimeTravel Web`
    - **Authorized JavaScript origins:**
      ```
      http://localhost:5173
@@ -135,7 +135,7 @@ Render will auto-deploy. Then test at your production URL!
 
 **"This app isn't verified"**
 - This is normal in development
-- Click "Advanced" → "Go to EasyTravel (unsafe)"
+- Click "Advanced" → "Go to PrimeTravel (unsafe)"
 - For production, you can verify the app later
 
 ## 📝 Notes

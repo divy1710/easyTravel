@@ -10,7 +10,7 @@ function Logo() {
     <Link to="/" className="flex items-center group">
       <motion.img
         src="/logo.jpeg"
-        alt="EasyTravel"
+        alt="PrimeTravel"
         className="h-14 w-14 rounded-full object-cover border-2 border-white/20"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
@@ -230,21 +230,21 @@ export function Layout({ children }: { children: ReactNode }) {
                   <Plane className="w-6 h-6 text-white transform rotate-[-30deg]" />
                 </motion.div>
                 <div className="flex items-baseline">
-                  <span className="font-extrabold text-2xl bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">Easy</span>
+                  <span className="font-extrabold text-2xl bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">Prime</span>
                   <span className="font-extrabold text-2xl bg-gradient-to-r from-cyan-400 to-indigo-400 bg-clip-text text-transparent">Travel</span>
                 </div>
               </div>
               <p className="text-gray-400 mb-6 max-w-sm leading-relaxed">
-                EasyTravel is your AI-powered travel companion, crafting personalized itineraries that turn your travel dreams into unforgettable adventures.
+                PrimeTravel is your AI-powered travel companion, crafting personalized itineraries that turn your travel dreams into unforgettable adventures.
               </p>
               
               {/* Contact Info */}
               <div className="space-y-3 mb-6">
-                <a href="mailto:hello@easytravel.com" className="flex items-center gap-3 text-gray-400 hover:text-cyan-400 transition-colors group">
+                <a href="mailto:hello@primetravel.com" className="flex items-center gap-3 text-gray-400 hover:text-cyan-400 transition-colors group">
                   <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center group-hover:bg-cyan-500/20 transition-colors">
                     <Mail className="w-4 h-4" />
                   </div>
-                  <span>hello@easytravel.com</span>
+                  <span>hello@primetravel.com</span>
                 </a>
                 <a href="tel:+1234567890" className="flex items-center gap-3 text-gray-400 hover:text-cyan-400 transition-colors group">
                   <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center group-hover:bg-cyan-500/20 transition-colors">
@@ -366,7 +366,7 @@ export function Layout({ children }: { children: ReactNode }) {
           {/* Bottom Bar */}
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-gray-500">
             <p className="flex items-center gap-1">
-              © {new Date().getFullYear()} EasyTravel. Made with 
+              © {new Date().getFullYear()} PrimeTravel. Made with 
               <Heart className="w-4 h-4 text-red-500 fill-red-500" /> 
               for travelers worldwide.
             </p>

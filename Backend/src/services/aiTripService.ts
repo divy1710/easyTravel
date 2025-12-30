@@ -128,7 +128,7 @@ async function getCountryFromCity(city: string): Promise<{ countryCode: string; 
         limit: 1,
       },
       headers: {
-        'User-Agent': 'EasyTravel/1.0', // Required by Nominatim
+        'User-Agent': 'PrimeTravel/1.0', // Required by Nominatim
       },
       timeout: 5000,
     });

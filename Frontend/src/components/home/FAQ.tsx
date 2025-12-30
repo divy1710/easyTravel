@@ -9,11 +9,11 @@ interface FAQItem {
 
 const faqs: FAQItem[] = [
   {
-    question: "How does EasyTravel create my personalized trip?",
+    question: "How does PrimeTravel create my personalized trip?",
     answer: "Simply tell us your destination, travel dates, interests, and budget. Our AI analyzes thousands of options and creates a custom itinerary tailored just for you. Whether you're into adventure, culture, relaxation, or food — we craft a trip that matches your unique travel style."
   },
   {
-    question: "What makes EasyTravel itineraries different from others?",
+    question: "What makes PrimeTravel itineraries different from others?",
     answer: "Our itineraries combine AI intelligence with real travel expertise. We don't just list tourist spots — we create logical day-by-day plans with optimal timing, hidden gems, local experiences, and practical tips. Each itinerary considers travel time, opening hours, and your energy levels throughout the day."
   },
   {
@@ -21,7 +21,7 @@ const faqs: FAQItem[] = [
     answer: "Absolutely! Your itinerary is fully customizable. Add or remove activities, swap destinations, adjust timing — it's your trip, your way. You can also regenerate specific days or ask our AI to suggest alternatives based on weather, mood, or new interests."
   },
   {
-    question: "Is EasyTravel free to use?",
+    question: "Is PrimeTravel free to use?",
     answer: "Yes! Creating and viewing itineraries is completely free. We offer premium features like offline access, real-time updates, and priority support for our Pro members. But you can plan amazing trips without spending a dime."
   },
   {
@@ -29,7 +29,7 @@ const faqs: FAQItem[] = [
     answer: "Our AI analyzes real-time data from multiple sources to provide accurate budget estimates. We show costs in the local currency of your destination and break down expenses by category — accommodation, activities, food, and transport. Actual costs may vary slightly based on season and availability."
   },
   {
-    question: "Can EasyTravel help with visa and travel requirements?",
+    question: "Can PrimeTravel help with visa and travel requirements?",
     answer: "We provide general guidance on visa requirements, travel advisories, and documentation needed for your destination. However, we always recommend checking with official embassy websites for the most up-to-date requirements specific to your nationality."
   },
   {
@@ -37,16 +37,16 @@ const faqs: FAQItem[] = [
     answer: "That's the fun part! Tell us what kind of experience you're looking for — beach relaxation, mountain adventures, cultural immersion, or culinary exploration — and our AI will suggest perfect destinations that match your vibe and budget."
   },
   {
-    question: "Does EasyTravel book flights and hotels?",
+    question: "Does PrimeTravel book flights and hotels?",
     answer: "Currently, we focus on creating the perfect itinerary. We provide recommendations and links to trusted booking platforms for flights, accommodations, and activities. Full booking integration is coming soon!"
   },
   {
-    question: "Can I plan group trips with EasyTravel?",
+    question: "Can I plan group trips with PrimeTravel?",
     answer: "Yes! Whether you're planning a solo adventure, romantic getaway, family vacation, or group trip with friends — our AI considers group dynamics and creates itineraries that work for everyone. You can share your itinerary with travel companions for easy coordination."
   },
   {
     question: "How do I get support if something goes wrong?",
-    answer: "Our support team is here to help! Reach out via email at hello@easytravel.com or through our in-app chat. Pro members get priority 24/7 support. We're committed to making your travel planning experience smooth and stress-free."
+    answer: "Our support team is here to help! Reach out via email at hello@primetravel.com or through our in-app chat. Pro members get priority 24/7 support. We're committed to making your travel planning experience smooth and stress-free."
   }
 ];
 
@@ -218,7 +218,7 @@ export default function FAQ() {
                 We're here to help you plan your dream trip
               </h3>
               <motion.a
-                href="mailto:hello@easytravel.com"
+                href="mailto:hello@primetravel.com"
                 className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-cyan-500 via-indigo-500 to-purple-500 text-white font-semibold rounded-full hover:shadow-xl hover:shadow-indigo-500/25 transition-all"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}

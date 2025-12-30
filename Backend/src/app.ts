@@ -36,7 +36,7 @@ app.use(limiter);
 app.get('/', (req: any, res: any) => {
   res.json({ 
     status: 'ok', 
-    message: 'EasyTravel API is running',
+    message: 'PrimeTravel API is running',
     version: 'v1',
     endpoints: {
       health: '/api/v1/health',

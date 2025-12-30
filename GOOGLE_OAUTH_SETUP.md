@@ -1,4 +1,4 @@
-# Google OAuth Setup Guide for EasyTravel
+# Google OAuth Setup Guide for PrimeTravel
 
 ## Overview
 Add "Continue with Google" authentication to allow users to sign up/login using their Google account.
@@ -12,7 +12,7 @@ Add "Continue with Google" authentication to allow users to sign up/login using 
 ### 1.2 Create a New Project (or select existing)
 1. Click on the project dropdown at the top
 2. Click "New Project"
-3. Name: `EasyTravel` or similar
+3. Name: `PrimeTravel` or similar
 4. Click "Create"
 
 ### 1.3 Enable Google+ API
@@ -25,7 +25,7 @@ Add "Continue with Google" authentication to allow users to sign up/login using 
 2. Choose **External** (unless you have Google Workspace)
 3. Click **Create**
 4. Fill in the required fields:
-   - **App name**: `EasyTravel`
+   - **App name**: `PrimeTravel`
    - **User support email**: Your email
    - **Developer contact**: Your email
 5. Click **Save and Continue**
@@ -39,7 +39,7 @@ Add "Continue with Google" authentication to allow users to sign up/login using 
 1. Go to **APIs & Services** → **Credentials**
 2. Click **+ Create Credentials** → **OAuth client ID**
 3. Application type: **Web application**
-4. Name: `EasyTravel Web Client`
+4. Name: `PrimeTravel Web Client`
 5. **Authorized JavaScript origins**:
    - Add: `http://localhost:5173` (development)
    - Add: `https://www.primetravel.in` (production - your actual domain)
