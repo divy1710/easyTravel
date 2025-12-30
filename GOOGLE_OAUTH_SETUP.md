@@ -1,26 +1,31 @@
 # Google OAuth Setup Guide for PrimeTravel
 
 ## Overview
+
 Add "Continue with Google" authentication to allow users to sign up/login using their Google account.
 
 ## Step 1: Get Google OAuth Credentials
 
 ### 1.1 Go to Google Cloud Console
+
 1. Visit [Google Cloud Console](https://console.cloud.google.com/)
 2. Sign in with your Google account
 
 ### 1.2 Create a New Project (or select existing)
+
 1. Click on the project dropdown at the top
 2. Click "New Project"
 3. Name: `PrimeTravel` or similar
 4. Click "Create"
 
 ### 1.3 Enable Google+ API
+
 1. In the left sidebar, go to **APIs & Services** → **Library**
 2. Search for "Google+ API"
 3. Click on it and click **Enable**
 
 ### 1.4 Configure OAuth Consent Screen
+
 1. Go to **APIs & Services** → **OAuth consent screen**
 2. Choose **External** (unless you have Google Workspace)
 3. Click **Create**
@@ -36,6 +41,7 @@ Add "Continue with Google" authentication to allow users to sign up/login using 
 8. Click **Save and Continue** → **Back to Dashboard**
 
 ### 1.5 Create OAuth 2.0 Credentials
+
 1. Go to **APIs & Services** → **Credentials**
 2. Click **+ Create Credentials** → **OAuth client ID**
 3. Application type: **Web application**
@@ -54,12 +60,14 @@ Add "Continue with Google" authentication to allow users to sign up/login using 
 ## Step 2: Update Backend Environment Variables
 
 ### 2.1 Add to `.env` file
+
 ```env
 GOOGLE_CLIENT_ID=your_client_id_here.apps.googleusercontent.com
 GOOGLE_CLIENT_SECRET=your_client_secret_here
 ```
 
 ### 2.2 Add to Render Dashboard (Production)
+
 1. Go to your Render dashboard
 2. Select your backend service
 3. Go to **Environment** tab
@@ -75,6 +83,7 @@ The frontend needs Google's Identity Services library. Add this to your `index.h
 **Location**: `Frontend/index.html`
 
 Add this script tag in the `<head>` section:
+
 ```html
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 ```
@@ -90,6 +99,7 @@ I'll add the Google Sign-In button to your Login and Signup pages.
 ## Step 6: Testing
 
 ### Development Testing:
+
 1. Run backend: `npm run dev` in Backend folder
 2. Run frontend: `npm run dev` in Frontend folder
 3. Go to `http://localhost:5173`
@@ -98,6 +108,7 @@ I'll add the Google Sign-In button to your Login and Signup pages.
 6. Should redirect to dashboard
 
 ### Production Testing:
+
 1. Make sure environment variables are set on Render
 2. Deploy changes
 3. Visit your production URL
@@ -113,14 +124,17 @@ I'll add the Google Sign-In button to your Login and Signup pages.
 ## Troubleshooting
 
 ### "Unauthorized redirect URI"
+
 - Make sure you added the exact URL to "Authorized redirect URIs" in Google Console
 - Check for http vs https mismatch
 
 ### "Access blocked: This app's request is invalid"
+
 - Complete the OAuth consent screen setup
 - Add test users in development mode
 
 ### "Invalid token"
+
 - Check that GOOGLE_CLIENT_ID matches between frontend and backend
 - Verify token hasn't expired (tokens are valid for ~1 hour)
 
@@ -139,6 +153,7 @@ I'll add the Google Sign-In button to your Login and Signup pages.
 ## Next Steps After Setup
 
 Once working:
+
 - Test with multiple Google accounts
 - Add Google profile picture (avatar) display
 - Consider adding "Sign in with Apple" or other OAuth providers

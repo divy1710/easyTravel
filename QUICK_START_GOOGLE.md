@@ -5,20 +5,24 @@
 ### Step 1: Get Google OAuth Credentials (5 minutes)
 
 1. **Open Google Cloud Console**
+
    - Go to: https://console.cloud.google.com/
    - Sign in with your Google account
 
 2. **Create/Select Project**
+
    - Click project dropdown (top left)
    - Click "New Project" or select existing
    - Name it "PrimeTravel"
 
 3. **Enable Required API**
+
    - Go to "APIs & Services" → "Library"
    - Search "Google+ API"
    - Click Enable
 
 4. **Configure OAuth Consent Screen**
+
    - Go to "APIs & Services" → "OAuth consent screen"
    - Choose "External"
    - Fill in:
@@ -50,12 +54,14 @@
 ### Step 2: Update Local Environment Files
 
 #### Backend `.env` file:
+
 ```env
 GOOGLE_CLIENT_ID=paste_your_client_id_here.apps.googleusercontent.com
 GOOGLE_CLIENT_SECRET=paste_your_client_secret_here
 ```
 
 #### Frontend `.env` file:
+
 ```env
 VITE_GOOGLE_CLIENT_ID=paste_your_client_id_here.apps.googleusercontent.com
 ```
@@ -82,12 +88,13 @@ VITE_GOOGLE_CLIENT_ID=paste_your_client_id_here.apps.googleusercontent.com
 cd Backend
 npm run dev
 
-# Terminal 2 - Frontend  
+# Terminal 2 - Frontend
 cd Frontend
 npm run dev
 ```
 
 Then:
+
 1. Open http://localhost:5173
 2. Click "Login" or "Sign up"
 3. Click "Sign in with Google" button
@@ -120,20 +127,24 @@ Render will auto-deploy. Then test at your production URL!
 ## 🐛 Troubleshooting
 
 **"Error: idpiframe_initialization_failed"**
+
 - Check that VITE_GOOGLE_CLIENT_ID is set correctly in Frontend/.env
 - Restart frontend dev server: Ctrl+C then `npm run dev`
 
 **"Google login failed"**
+
 - Check browser console for detailed error
 - Verify Client ID matches in frontend and backend
 - Make sure http://localhost:5173 is in Authorized JavaScript origins
 
 **"Invalid redirect URI"**
+
 - Make sure you added exact URLs to Google Console
 - No trailing slashes!
 - Check http vs https
 
 **"This app isn't verified"**
+
 - This is normal in development
 - Click "Advanced" → "Go to PrimeTravel (unsafe)"
 - For production, you can verify the app later
@@ -148,6 +159,7 @@ Render will auto-deploy. Then test at your production URL!
 ## 🎉 What's Next?
 
 Once Google login works:
+
 - Users can sign up with one click
 - No password required for Google users
 - Avatar from Google profile automatically saved
