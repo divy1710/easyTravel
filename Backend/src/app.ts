@@ -16,6 +16,15 @@ app.use(cors({
     : ['http://localhost:5173', 'http://localhost:3000'],
   credentials: true, // Allow cookies to be sent
 }));
+
+// Security headers for Google OAuth
+app.use((req, res, next) => {
+  // Allow cross-origin for Google OAuth popup
+  res.setHeader('Cross-Origin-Opener-Policy', 'same-origin-allow-popups');
+  res.setHeader('Cross-Origin-Embedder-Policy', 'unsafe-none');
+  next();
+});
+
 app.use(cookieParser());
 app.use(express.json());
 app.use(morgan(config.nodeEnv === 'production' ? 'combined' : 'dev'));
