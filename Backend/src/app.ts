@@ -19,9 +19,9 @@ app.use(cors({
 
 // Security headers for Google OAuth
 app.use((req, res, next) => {
-  // Allow cross-origin for Google OAuth popup
-  res.setHeader('Cross-Origin-Opener-Policy', 'same-origin-allow-popups');
-  res.setHeader('Cross-Origin-Embedder-Policy', 'unsafe-none');
+  // Remove restrictive headers that block Google OAuth
+  res.removeHeader('Cross-Origin-Opener-Policy');
+  res.removeHeader('Cross-Origin-Embedder-Policy');
   next();
 });
 
