@@ -49,32 +49,32 @@ export function Layout({ children }: { children: ReactNode }) {
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
       {/* Header - absolute on home page, fixed on other pages */}
-      <header className={`px-2 py-2 transition-all duration-300 ${
+      <header className={`px-2 py-3 transition-all duration-300 ${
         isHomePage 
           ? 'absolute top-0 left-0 right-0 z-50 bg-transparent' 
-          : 'fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200/50'
+          : 'fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-xl border-b border-white/20 shadow-lg shadow-gray-200/50'
       }`}>
-        <div className="w-full flex items-center justify-between px-2">
+        <div className="w-full flex items-center justify-between px-4">
           <Logo />
-          <nav className="flex items-center gap-6">
+          <nav className="flex items-center gap-8">
             {user ? (
               <>
                 <Link 
                   to="/trips" 
-                  className={`transition-colors font-medium ${
+                  className={`transition-all font-semibold text-sm ${
                     isHomePage 
-                      ? 'text-white/90 hover:text-white' 
-                      : 'text-gray-600 hover:text-indigo-600'
+                      ? 'text-white/90 hover:text-white hover:scale-105' 
+                      : 'text-gray-700 hover:text-indigo-600 hover:scale-105'
                   }`}
                 >
                   My Trips
                 </Link>
                 <Link 
                   to="/dashboard" 
-                  className={`transition-colors font-medium ${
+                  className={`transition-all font-semibold text-sm ${
                     isHomePage 
-                      ? 'text-white/90 hover:text-white' 
-                      : 'text-gray-600 hover:text-indigo-600'
+                      ? 'text-white/90 hover:text-white hover:scale-105' 
+                      : 'text-gray-700 hover:text-indigo-600 hover:scale-105'
                   }`}
                 >
                   Dashboard
@@ -84,10 +84,10 @@ export function Layout({ children }: { children: ReactNode }) {
                 <div className="relative" ref={profileRef}>
                   <button
                     onClick={() => setIsProfileOpen(!isProfileOpen)}
-                    className={`flex items-center gap-2 px-3 py-2 rounded-full transition-all ${
+                    className={`flex items-center gap-2 px-4 py-2.5 rounded-full transition-all shadow-md hover:shadow-lg ${
                       isHomePage
-                        ? 'bg-white/10 hover:bg-white/20 text-white'
-                        : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
+                        ? 'bg-white/15 backdrop-blur-xl hover:bg-white/25 text-white border border-white/20'
+                        : 'bg-gradient-to-r from-indigo-50 to-purple-50 hover:from-indigo-100 hover:to-purple-100 text-gray-700 border border-indigo-200/50'
                     }`}
                   >
                     <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
@@ -144,20 +144,20 @@ export function Layout({ children }: { children: ReactNode }) {
               <>
                 <Link 
                   to="/login" 
-                  className={`transition-colors font-medium ${
+                  className={`transition-all font-semibold text-sm ${
                     isHomePage 
-                      ? 'text-white/90 hover:text-white' 
-                      : 'text-gray-600 hover:text-indigo-600'
+                      ? 'text-white/90 hover:text-white hover:scale-105' 
+                      : 'text-gray-700 hover:text-indigo-600 hover:scale-105'
                   }`}
                 >
                   Login
                 </Link>
                 <Link 
                   to="/signup" 
-                  className={`px-5 py-2 rounded-full font-semibold transition-all ${
+                  className={`px-6 py-2.5 rounded-full font-semibold text-sm transition-all shadow-md hover:shadow-xl hover:scale-105 ${
                     isHomePage
-                      ? 'bg-white text-gray-900 hover:shadow-lg hover:shadow-white/25'
-                      : 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white hover:shadow-lg hover:shadow-indigo-500/25'
+                      ? 'bg-white text-gray-900 hover:shadow-white/30 border border-white/20'
+                      : 'bg-gradient-to-r from-cyan-500 via-indigo-600 to-purple-600 text-white hover:shadow-indigo-500/40'
                   }`}
                 >
                   Get Started
@@ -177,19 +177,24 @@ export function Layout({ children }: { children: ReactNode }) {
       </main>
 
       {/* Footer */}
-      <footer className="bg-slate-900 text-white">
-        <div className="max-w-7xl mx-auto px-6 py-12">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+      <footer className="relative bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 text-white overflow-hidden">
+        {/* Background Pattern */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(99,102,241,0.1),transparent_50%),radial-gradient(circle_at_70%_80%,rgba(139,92,246,0.1),transparent_50%)]" />
+        
+        <div className="relative max-w-7xl mx-auto px-6 py-16">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
             {/* Brand */}
             <div>
-              <div className="flex items-center gap-2 mb-4">
-                <Plane className="w-6 h-6 text-cyan-400" />
-                <span className="font-bold text-xl">PrimeTravel</span>
+              <div className="flex items-center gap-3 mb-5">
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-cyan-500/30">
+                  <Plane className="w-5 h-5 text-white" />
+                </div>
+                <span className="font-bold text-2xl bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">PrimeTravel</span>
               </div>
-              <p className="text-gray-400 mb-4">
+              <p className="text-gray-400 mb-6 leading-relaxed">
                 Your AI-powered travel companion for personalized itineraries.
               </p>
-              <div className="flex gap-3">
+              <div className="flex gap-4">
                 {[
                   { icon: Mail, href: 'mailto:primetravel04@gmail.com' },
                   { icon: Instagram, href: 'https://www.instagram.com/primetravel04?igsh=OWU1eHRubzVsbDRo' },
@@ -199,9 +204,9 @@ export function Layout({ children }: { children: ReactNode }) {
                     href={href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-9 h-9 rounded-lg bg-white/5 hover:bg-cyan-500/20 flex items-center justify-center text-gray-400 hover:text-cyan-400 transition-colors"
+                    className="w-11 h-11 rounded-xl bg-white/5 backdrop-blur-sm hover:bg-gradient-to-br hover:from-cyan-500/20 hover:to-indigo-500/20 flex items-center justify-center text-gray-400 hover:text-cyan-400 transition-all hover:scale-110 hover:shadow-lg hover:shadow-cyan-500/20 border border-white/10"
                   >
-                    <Icon className="w-4 h-4" />
+                    <Icon className="w-5 h-5" />
                   </a>
                 ))}
               </div>
@@ -209,11 +214,11 @@ export function Layout({ children }: { children: ReactNode }) {
 
             {/* Quick Links */}
             <div>
-              <h4 className="font-semibold mb-4">Company</h4>
-              <ul className="space-y-2">
+              <h4 className="font-bold text-lg mb-5 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">Company</h4>
+              <ul className="space-y-3">
                 {['About Us', 'How It Works', 'Contact'].map((item) => (
                   <li key={item}>
-                    <Link to="/" className="text-gray-400 hover:text-white transition-colors">
+                    <Link to="/" className="text-gray-400 hover:text-cyan-400 transition-all hover:translate-x-1 inline-block">
                       {item}
                     </Link>
                   </li>
@@ -223,11 +228,11 @@ export function Layout({ children }: { children: ReactNode }) {
 
             {/* Support */}
             <div>
-              <h4 className="font-semibold mb-4">Support</h4>
-              <ul className="space-y-2">
+              <h4 className="font-bold text-lg mb-5 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">Support</h4>
+              <ul className="space-y-3">
                 {['Help Center', 'Privacy Policy', 'Terms of Service'].map((item) => (
                   <li key={item}>
-                    <Link to="/" className="text-gray-400 hover:text-white transition-colors">
+                    <Link to="/" className="text-gray-400 hover:text-cyan-400 transition-all hover:translate-x-1 inline-block">
                       {item}
                     </Link>
                   </li>
@@ -237,8 +242,10 @@ export function Layout({ children }: { children: ReactNode }) {
           </div>
 
           {/* Bottom */}
-          <div className="pt-8 border-t border-white/10 text-center text-sm text-gray-500">
-            <p>© {new Date().getFullYear()} PrimeTravel. All rights reserved.</p>
+          <div className="pt-10 border-t border-white/10 text-center">
+            <p className="text-gray-400 text-sm">
+              © {new Date().getFullYear()} <span className="font-semibold text-white">PrimeTravel</span>. All rights reserved. Made with ❤️ for travelers worldwide 🌍
+            </p>
           </div>
         </div>
       </footer>
