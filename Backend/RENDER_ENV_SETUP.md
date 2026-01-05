@@ -16,6 +16,8 @@ GROQ_API_KEY=your_groq_api_key
 MAPBOX_TOKEN=your_mapbox_token
 EMAIL_USER=your_email@gmail.com
 EMAIL_PASSWORD=your_gmail_app_password
+GOOGLE_CLIENT_ID=your_google_client_id.apps.googleusercontent.com
+GOOGLE_CLIENT_SECRET=GOCSPX-your_google_client_secret
 
 ```
 
