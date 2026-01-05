@@ -15,6 +15,8 @@ export const config = {
   mongodbUri: process.env.MONGODB_URI || '',
   groqApiKey: process.env.GROQ_API_KEY || '',
   mapboxToken: process.env.MAPBOX_TOKEN || '',
+  googleClientId: process.env.GOOGLE_CLIENT_ID || '',
+  googleClientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
   emailUser: process.env.EMAIL_USER || '',
   emailPassword: process.env.EMAIL_PASSWORD || '',
 };
