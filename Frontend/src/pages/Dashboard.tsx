@@ -134,36 +134,36 @@ export default function Dashboard() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="grid grid-cols-3 gap-4 mb-8"
+            className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8"
           >
-            <div className="bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 p-6 hover:bg-white/10 transition-all">
-              <div className="flex items-center justify-between mb-4">
-                <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center">
-                  <Globe className="w-6 h-6 text-white" />
+            <div className="bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 p-4 sm:p-6 hover:bg-white/10 transition-all">
+              <div className="flex items-center justify-between mb-3 sm:mb-4">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center">
+                  <Globe className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                 </div>
-                <span className="text-3xl font-bold text-white">{totalTrips}</span>
+                <span className="text-2xl sm:text-3xl font-bold text-white">{totalTrips}</span>
               </div>
-              <p className="text-white/60 font-medium">Total Trips</p>
+              <p className="text-white/60 font-medium text-sm sm:text-base">Total Trips</p>
             </div>
 
-            <div className="bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 p-6 hover:bg-white/10 transition-all">
-              <div className="flex items-center justify-between mb-4">
-                <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center">
-                  <MapPin className="w-6 h-6 text-white" />
+            <div className="bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 p-4 sm:p-6 hover:bg-white/10 transition-all">
+              <div className="flex items-center justify-between mb-3 sm:mb-4">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center">
+                  <MapPin className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                 </div>
-                <span className="text-3xl font-bold text-white">{citiesExplored}</span>
+                <span className="text-2xl sm:text-3xl font-bold text-white">{citiesExplored}</span>
               </div>
-              <p className="text-white/60 font-medium">Cities Explored</p>
+              <p className="text-white/60 font-medium text-sm sm:text-base">Cities Explored</p>
             </div>
 
-            <div className="bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 p-6 hover:bg-white/10 transition-all">
-              <div className="flex items-center justify-between mb-4">
-                <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-500 rounded-xl flex items-center justify-center">
-                  <Calendar className="w-6 h-6 text-white" />
+            <div className="bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 p-4 sm:p-6 hover:bg-white/10 transition-all">
+              <div className="flex items-center justify-between mb-3 sm:mb-4">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-orange-500 to-red-500 rounded-xl flex items-center justify-center">
+                  <Calendar className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                 </div>
-                <span className="text-3xl font-bold text-white">{totalDays}</span>
+                <span className="text-2xl sm:text-3xl font-bold text-white">{totalDays}</span>
               </div>
-              <p className="text-white/60 font-medium">Days Planned</p>
+              <p className="text-white/60 font-medium text-sm sm:text-base">Days Planned</p>
             </div>
           </motion.div>
 
@@ -175,19 +175,20 @@ export default function Dashboard() {
               transition={{ delay: 0.2 }}
               className="lg:col-span-3 bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 overflow-hidden"
             >
-              <div className="px-6 py-4 border-b border-white/10 flex items-center justify-between">
-                <h2 className="font-semibold text-white flex items-center gap-2">
-                  <Clock className="w-5 h-5 text-indigo-400" />
+              <div className="px-4 sm:px-6 py-4 border-b border-white/10 flex items-center justify-between">
+                <h2 className="font-semibold text-white flex items-center gap-2 text-sm sm:text-base">
+                  <Clock className="w-4 h-4 sm:w-5 sm:h-5 text-indigo-400" />
                   Recent Adventures
                 </h2>
-                <div className="flex items-center gap-4">
-                  <Link to="/trips/new" className="text-sm text-purple-400 hover:text-purple-300 font-medium flex items-center gap-1">
-                    <Plus className="w-4 h-4" />
-                    Create Trip
+                <div className="flex items-center gap-2 sm:gap-4">
+                  <Link to="/trips/new" className="text-xs sm:text-sm text-purple-400 hover:text-purple-300 font-medium flex items-center gap-1">
+                    <Plus className="w-3 h-3 sm:w-4 sm:h-4" />
+                    <span className="hidden sm:inline">Create Trip</span>
                   </Link>
-                  <Link to="/trips" className="text-sm text-indigo-400 hover:text-indigo-300 font-medium flex items-center gap-1">
-                    View all
-                    <ChevronRight className="w-4 h-4" />
+                  <Link to="/trips" className="text-xs sm:text-sm text-indigo-400 hover:text-indigo-300 font-medium flex items-center gap-1">
+                    <span className="hidden sm:inline">View all</span>
+                    <span className="sm:hidden">All</span>
+                    <ChevronRight className="w-3 h-3 sm:w-4 sm:h-4" />
                   </Link>
                 </div>
               </div>
@@ -198,7 +199,7 @@ export default function Dashboard() {
                   <p className="text-white/50">Loading your trips...</p>
                 </div>
               ) : recentTrips.length > 0 ? (
-                <div className="p-4 grid grid-cols-2 gap-4">
+                <div className="p-3 sm:p-4 grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                   {recentTrips.map((trip, index) => (
                     <motion.div
                       key={trip._id}
@@ -208,20 +209,20 @@ export default function Dashboard() {
                     >
                       <Link
                         to={`/trips/${trip._id}`}
-                        className="block p-4 bg-white/5 rounded-xl border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all group"
+                        className="block p-3 sm:p-4 bg-white/5 rounded-xl border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all group"
                       >
-                        <div className="flex items-start gap-3 mb-3">
-                          <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                            <Plane className="w-5 h-5 text-white transform rotate-[-30deg]" />
+                        <div className="flex items-start gap-2 sm:gap-3 mb-2 sm:mb-3">
+                          <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                            <Plane className="w-4 h-4 sm:w-5 sm:h-5 text-white transform rotate-[-30deg]" />
                           </div>
-                          <div>
-                            <h3 className="font-semibold text-white group-hover:text-indigo-300 transition-colors">
+                          <div className="min-w-0 flex-1">
+                            <h3 className="font-semibold text-white group-hover:text-indigo-300 transition-colors text-sm sm:text-base truncate">
                               {trip.title}
                             </h3>
-                            <p className="text-sm text-white/40">{formatDate(trip.startDate)} - {formatDate(trip.endDate)}</p>
+                            <p className="text-xs sm:text-sm text-white/40 truncate">{formatDate(trip.startDate)} - {formatDate(trip.endDate)}</p>
                           </div>
                         </div>
-                        <div className="flex flex-wrap gap-2">
+                        <div className="flex flex-wrap gap-1.5 sm:gap-2">
                           <span className="inline-flex items-center gap-1 text-xs text-white/50 bg-white/5 px-2 py-1 rounded-full">
                             <Calendar className="w-3 h-3" />
                             {trip.days?.length || 0} days
@@ -261,37 +262,37 @@ export default function Dashboard() {
               className="lg:col-span-2 space-y-6"
             >
               {/* Quick Actions */}
-              <div className="bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 p-5">
-                <h2 className="font-semibold text-white mb-4 flex items-center gap-2">
-                  <Sparkles className="w-5 h-5 text-yellow-400" />
+              <div className="bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 p-4 sm:p-5">
+                <h2 className="font-semibold text-white mb-3 sm:mb-4 flex items-center gap-2 text-sm sm:text-base">
+                  <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-400" />
                   Quick Actions
                 </h2>
-                <div className="space-y-3">
+                <div className="space-y-2 sm:space-y-3">
                   <Link
                     to="/trips/new"
-                    className="flex items-center gap-3 p-4 rounded-xl bg-gradient-to-r from-indigo-500/20 to-purple-500/20 border border-indigo-500/30 text-white hover:from-indigo-500/30 hover:to-purple-500/30 transition-all group"
+                    className="flex items-center gap-2 sm:gap-3 p-3 sm:p-4 rounded-xl bg-gradient-to-r from-indigo-500/20 to-purple-500/20 border border-indigo-500/30 text-white hover:from-indigo-500/30 hover:to-purple-500/30 transition-all group"
                   >
-                    <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg flex items-center justify-center">
-                      <Plus className="w-5 h-5 text-white" />
+                    <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <Plus className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                     </div>
-                    <div>
-                      <span className="font-medium block">Create New Trip</span>
+                    <div className="min-w-0 flex-1">
+                      <span className="font-medium block text-sm sm:text-base">Create New Trip</span>
                       <span className="text-xs text-white/50">AI-powered planning</span>
                     </div>
-                    <ChevronRight className="w-5 h-5 ml-auto text-white/30 group-hover:text-white/60 transition-colors" />
+                    <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0 text-white/30 group-hover:text-white/60 transition-colors" />
                   </Link>
                   <Link
                     to="/trips"
-                    className="flex items-center gap-3 p-4 rounded-xl bg-white/5 border border-white/10 text-white hover:bg-white/10 transition-all group"
+                    className="flex items-center gap-2 sm:gap-3 p-3 sm:p-4 rounded-xl bg-white/5 border border-white/10 text-white hover:bg-white/10 transition-all group"
                   >
-                    <div className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center">
-                      <MapPin className="w-5 h-5 text-white/70" />
+                    <div className="w-8 h-8 sm:w-10 sm:h-10 bg-white/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-white/70" />
                     </div>
-                    <div>
-                      <span className="font-medium block">View All Trips</span>
+                    <div className="min-w-0 flex-1">
+                      <span className="font-medium block text-sm sm:text-base">View All Trips</span>
                       <span className="text-xs text-white/50">Manage your adventures</span>
                     </div>
-                    <ChevronRight className="w-5 h-5 ml-auto text-white/30 group-hover:text-white/60 transition-colors" />
+                    <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0 text-white/30 group-hover:text-white/60 transition-colors" />
                   </Link>
                 </div>
               </div>
@@ -322,12 +323,12 @@ export default function Dashboard() {
               </div>
 
               {/* Pro Tip */}
-              <div className="bg-gradient-to-br from-indigo-500/20 to-purple-500/20 backdrop-blur-xl rounded-2xl border border-indigo-500/20 p-5">
-                <div className="flex items-start gap-3">
-                  <div className="text-2xl">💡</div>
-                  <div>
-                    <h3 className="font-semibold text-white mb-1">Pro Tip</h3>
-                    <p className="text-white/60 text-sm leading-relaxed">
+              <div className="bg-gradient-to-br from-indigo-500/20 to-purple-500/20 backdrop-blur-xl rounded-2xl border border-indigo-500/20 p-4 sm:p-5">
+                <div className="flex items-start gap-2 sm:gap-3">
+                  <div className="text-xl sm:text-2xl flex-shrink-0">💡</div>
+                  <div className="min-w-0">
+                    <h3 className="font-semibold text-white mb-1 text-sm sm:text-base">Pro Tip</h3>
+                    <p className="text-white/60 text-xs sm:text-sm leading-relaxed">
                       Add multiple interests when creating a trip to get more personalized recommendations from our AI.
                     </p>
                   </div>
