@@ -5,6 +5,7 @@ interface GoogleLoginButtonProps {
   onError?: () => void;
   text?: 'signin_with' | 'signup_with' | 'continue_with';
 }
+// used text options as per Google Identity Services documentation
 
 // Extend window to include google
 declare global {
