@@ -124,15 +124,15 @@ export default function TripDetail() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 py-8 px-4">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 py-4 sm:py-6 md:py-8 px-3 sm:px-4">
       <div className="max-w-5xl mx-auto">
         {/* Back Button */}
         <button
           onClick={() => navigate('/trips')}
-          className="mb-6 flex items-center gap-2 text-white/70 hover:text-white transition-colors group"
+          className="mb-4 sm:mb-6 flex items-center gap-2 text-white/70 hover:text-white transition-colors group"
         >
-          <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
-          <span className="font-medium">Back to Trips</span>
+          <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5 group-hover:-translate-x-1 transition-transform" />
+          <span className="font-medium text-sm sm:text-base">Back to Trips</span>
         </button>
 
         {/* Editable Itinerary */}

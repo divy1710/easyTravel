@@ -165,16 +165,16 @@ export function ItineraryDisplay({ data, onClose, tripId, editable = false, onPl
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')] bg-cover bg-center opacity-20" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
         
-        <div className="relative p-8 md:p-10">
-          <div className="flex items-start justify-between">
-            <div>
-              <div className="flex items-center gap-2 mb-3">
-                <div className="flex items-center gap-2 bg-white/20 backdrop-blur-sm px-3 py-1.5 rounded-full">
-                  <Sparkles className="w-4 h-4 text-yellow-300" />
-                  <span className="text-white/90 text-sm font-medium">AI Generated</span>
+        <div className="relative p-4 sm:p-6 md:p-8 lg:p-10">
+          <div className="flex items-start justify-between gap-2">
+            <div className="min-w-0 flex-1">
+              <div className="flex items-center gap-2 mb-2 sm:mb-3">
+                <div className="flex items-center gap-1.5 sm:gap-2 bg-white/20 backdrop-blur-sm px-2 sm:px-3 py-1 sm:py-1.5 rounded-full">
+                  <Sparkles className="w-3 h-3 sm:w-4 sm:h-4 text-yellow-300" />
+                  <span className="text-white/90 text-xs sm:text-sm font-medium">AI Generated</span>
                 </div>
               </div>
-              <h1 className="text-4xl md:text-5xl font-bold text-white mb-3">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-2 sm:mb-3 truncate">
                 {data.metadata?.landingCity || 'Your Trip'}
                 {data.country && (
                   <span className="text-white/70 text-2xl font-normal ml-3">{data.country}</span>
@@ -195,53 +195,53 @@ export function ItineraryDisplay({ data, onClose, tripId, editable = false, onPl
           </div>
 
           {/* Stats Cards */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
-            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 border border-white/10">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-green-400/20 rounded-xl flex items-center justify-center">
-                  <DollarSign className="w-5 h-5 text-green-300" />
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3 md:gap-4 mt-4 sm:mt-6 md:mt-8">
+            <div className="bg-white/10 backdrop-blur-sm rounded-xl sm:rounded-2xl p-2.5 sm:p-3 md:p-4 border border-white/10">
+              <div className="flex items-center gap-2 sm:gap-3">
+                <div className="w-8 h-8 sm:w-10 sm:h-10 bg-green-400/20 rounded-lg sm:rounded-xl flex items-center justify-center flex-shrink-0">
+                  <DollarSign className="w-4 h-4 sm:w-5 sm:h-5 text-green-300" />
                 </div>
-                <div>
-                  <p className="text-white/60 text-xs uppercase tracking-wide">Total Cost</p>
-                  <p className="text-white font-bold text-lg">{data.totalEstimatedCost}</p>
+                <div className="min-w-0">
+                  <p className="text-white/60 text-[10px] sm:text-xs uppercase tracking-wide truncate">Total Cost</p>
+                  <p className="text-white font-bold text-sm sm:text-base md:text-lg truncate">{data.totalEstimatedCost}</p>
                 </div>
               </div>
             </div>
             
             {data.metadata && (
               <>
-                <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 border border-white/10">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-blue-400/20 rounded-xl flex items-center justify-center">
-                      <Calendar className="w-5 h-5 text-blue-300" />
+                <div className="bg-white/10 backdrop-blur-sm rounded-xl sm:rounded-2xl p-2.5 sm:p-3 md:p-4 border border-white/10">
+                  <div className="flex items-center gap-2 sm:gap-3">
+                    <div className="w-8 h-8 sm:w-10 sm:h-10 bg-blue-400/20 rounded-lg sm:rounded-xl flex items-center justify-center flex-shrink-0">
+                      <Calendar className="w-4 h-4 sm:w-5 sm:h-5 text-blue-300" />
                     </div>
-                    <div>
-                      <p className="text-white/60 text-xs uppercase tracking-wide">Duration</p>
-                      <p className="text-white font-bold text-lg">{data.metadata.tripDays} Days</p>
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 border border-white/10">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-purple-400/20 rounded-xl flex items-center justify-center">
-                      <Users className="w-5 h-5 text-purple-300" />
-                    </div>
-                    <div>
-                      <p className="text-white/60 text-xs uppercase tracking-wide">Group</p>
-                      <p className="text-white font-bold text-lg">{data.metadata.groupType}</p>
+                    <div className="min-w-0">
+                      <p className="text-white/60 text-[10px] sm:text-xs uppercase tracking-wide truncate">Duration</p>
+                      <p className="text-white font-bold text-sm sm:text-base md:text-lg truncate">{data.metadata.tripDays} Days</p>
                     </div>
                   </div>
                 </div>
                 
-                <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 border border-white/10">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-orange-400/20 rounded-xl flex items-center justify-center">
-                      <Sun className="w-5 h-5 text-orange-300" />
+                <div className="bg-white/10 backdrop-blur-sm rounded-xl sm:rounded-2xl p-2.5 sm:p-3 md:p-4 border border-white/10">
+                  <div className="flex items-center gap-2 sm:gap-3">
+                    <div className="w-8 h-8 sm:w-10 sm:h-10 bg-purple-400/20 rounded-lg sm:rounded-xl flex items-center justify-center flex-shrink-0">
+                      <Users className="w-4 h-4 sm:w-5 sm:h-5 text-purple-300" />
                     </div>
-                    <div>
-                      <p className="text-white/60 text-xs uppercase tracking-wide">Month</p>
-                      <p className="text-white font-bold text-lg">{data.metadata.month}</p>
+                    <div className="min-w-0">
+                      <p className="text-white/60 text-[10px] sm:text-xs uppercase tracking-wide truncate">Group</p>
+                      <p className="text-white font-bold text-sm sm:text-base md:text-lg truncate">{data.metadata.groupType}</p>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="bg-white/10 backdrop-blur-sm rounded-xl sm:rounded-2xl p-2.5 sm:p-3 md:p-4 border border-white/10">
+                  <div className="flex items-center gap-2 sm:gap-3">
+                    <div className="w-8 h-8 sm:w-10 sm:h-10 bg-orange-400/20 rounded-lg sm:rounded-xl flex items-center justify-center flex-shrink-0">
+                      <Sun className="w-4 h-4 sm:w-5 sm:h-5 text-orange-300" />
+                    </div>
+                    <div className="min-w-0">
+                      <p className="text-white/60 text-[10px] sm:text-xs uppercase tracking-wide truncate">Month</p>
+                      <p className="text-white font-bold text-sm sm:text-base md:text-lg truncate">{data.metadata.month}</p>
                     </div>
                   </div>
                 </div>
@@ -257,24 +257,24 @@ export function ItineraryDisplay({ data, onClose, tripId, editable = false, onPl
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.05 }}
-          className="mb-8"
+          className="mb-6 sm:mb-8"
         >
           {!showAIPrompt ? (
             <button
               onClick={() => setShowAIPrompt(true)}
-              className="w-full bg-gradient-to-r from-purple-500/10 to-pink-500/10 hover:from-purple-500/20 hover:to-pink-500/20 backdrop-blur-sm border border-purple-500/30 rounded-2xl p-5 flex items-center justify-center gap-3 transition-all group"
+              className="w-full bg-gradient-to-r from-purple-500/10 to-pink-500/10 hover:from-purple-500/20 hover:to-pink-500/20 backdrop-blur-sm border border-purple-500/30 rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-5 flex items-center justify-center gap-2 sm:gap-3 transition-all group"
             >
-              <Wand2 className="w-5 h-5 text-purple-400 group-hover:scale-110 transition-transform" />
-              <span className="text-white font-semibold">Modify Itinerary with AI</span>
-              <Sparkles className="w-4 h-4 text-pink-400" />
+              <Wand2 className="w-4 h-4 sm:w-5 sm:h-5 text-purple-400 group-hover:scale-110 transition-transform" />
+              <span className="text-white font-semibold text-sm sm:text-base">Modify Itinerary with AI</span>
+              <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-pink-400" />
             </button>
           ) : (
-            <div className="bg-gradient-to-r from-purple-500/10 to-pink-500/10 backdrop-blur-sm border border-purple-500/30 rounded-2xl p-6">
-              <div className="flex items-center gap-3 mb-4">
-                <Wand2 className="w-6 h-6 text-purple-400" />
-                <h3 className="font-semibold text-white text-lg">AI Trip Modification</h3>
+            <div className="bg-gradient-to-r from-purple-500/10 to-pink-500/10 backdrop-blur-sm border border-purple-500/30 rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6">
+              <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
+                <Wand2 className="w-5 h-5 sm:w-6 sm:h-6 text-purple-400" />
+                <h3 className="font-semibold text-white text-base sm:text-lg">AI Trip Modification</h3>
               </div>
-              <p className="text-white/70 text-sm mb-4">
+              <p className="text-white/70 text-xs sm:text-sm mb-3 sm:mb-4">
                 Tell me how you'd like to modify your itinerary. For example: "Make it more budget-friendly", "Add more cultural activities", "Replace lunch places with local street food", etc.
               </p>
               <textarea
@@ -282,15 +282,15 @@ export function ItineraryDisplay({ data, onClose, tripId, editable = false, onPl
                 onChange={(e) => setAIPrompt(e.target.value)}
                 placeholder="Enter your modification request..."
                 rows={3}
-                className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-purple-500 resize-none mb-4"
+                className="w-full bg-white/10 border border-white/20 rounded-xl px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-purple-500 resize-none mb-3 sm:mb-4"
               />
-              <div className="flex gap-3">
+              <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
                 <button
                   onClick={handleAIModify}
                   disabled={!aiPrompt.trim()}
-                  className="flex-1 bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-600 hover:to-pink-700 disabled:from-gray-500 disabled:to-gray-600 disabled:cursor-not-allowed text-white px-6 py-3 rounded-xl font-medium transition-all flex items-center justify-center gap-2"
+                  className="flex-1 bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-600 hover:to-pink-700 disabled:from-gray-500 disabled:to-gray-600 disabled:cursor-not-allowed text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl font-medium transition-all flex items-center justify-center gap-2 text-sm sm:text-base"
                 >
-                  <Sparkles className="w-5 h-5" />
+                  <Sparkles className="w-4 h-4 sm:w-5 sm:h-5" />
                   Apply AI Modifications
                 </button>
                 <button
@@ -298,7 +298,7 @@ export function ItineraryDisplay({ data, onClose, tripId, editable = false, onPl
                     setShowAIPrompt(false);
                     setAIPrompt('');
                   }}
-                  className="bg-white/10 hover:bg-white/20 text-white px-6 py-3 rounded-xl font-medium transition-all"
+                  className="bg-white/10 hover:bg-white/20 text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl font-medium transition-all text-sm sm:text-base"
                 >
                   Cancel
                 </button>
@@ -314,19 +314,19 @@ export function ItineraryDisplay({ data, onClose, tripId, editable = false, onPl
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="mb-8"
+          className="mb-6 sm:mb-8"
         >
           <button
             onClick={() => setShowTips(!showTips)}
-            className="w-full bg-gradient-to-r from-amber-500/10 to-orange-500/10 backdrop-blur-sm border border-amber-500/20 rounded-2xl p-5 flex items-center justify-between hover:from-amber-500/15 hover:to-orange-500/15 transition-all"
+            className="w-full bg-gradient-to-r from-amber-500/10 to-orange-500/10 backdrop-blur-sm border border-amber-500/20 rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-5 flex items-center justify-between hover:from-amber-500/15 hover:to-orange-500/15 transition-all"
           >
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-amber-400/20 rounded-xl flex items-center justify-center">
-                <Lightbulb className="w-5 h-5 text-amber-400" />
+            <div className="flex items-center gap-2 sm:gap-3">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 bg-amber-400/20 rounded-lg sm:rounded-xl flex items-center justify-center flex-shrink-0">
+                <Lightbulb className="w-4 h-4 sm:w-5 sm:h-5 text-amber-400" />
               </div>
-              <div className="text-left">
-                <h3 className="font-semibold text-white">Travel Tips</h3>
-                <p className="text-white/50 text-sm">{data.travelTips.length} tips to make your trip better</p>
+              <div className="text-left min-w-0">
+                <h3 className="font-semibold text-white text-sm sm:text-base truncate">Travel Tips</h3>
+                <p className="text-white/50 text-xs sm:text-sm truncate">{data.travelTips.length} tips to make your trip better</p>
               </div>
             </div>
             {showTips ? (
@@ -379,29 +379,29 @@ export function ItineraryDisplay({ data, onClose, tripId, editable = false, onPl
             {/* Day Header */}
             <button
               onClick={() => toggleDay(day.day)}
-              className="w-full px-6 py-4 flex items-center justify-between hover:bg-white/5 transition-all"
+              className="w-full px-3 sm:px-4 md:px-6 py-3 sm:py-4 flex items-center justify-between hover:bg-white/5 transition-all gap-2"
             >
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center">
-                  <span className="text-white font-bold text-lg">{day.day}</span>
+              <div className="flex items-center gap-2 sm:gap-3 md:gap-4 min-w-0 flex-1">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg sm:rounded-xl flex items-center justify-center flex-shrink-0">
+                  <span className="text-white font-bold text-base sm:text-lg">{day.day}</span>
                 </div>
-                <div className="text-left">
-                  <h3 className="font-semibold text-white text-lg">
+                <div className="text-left min-w-0">
+                  <h3 className="font-semibold text-white text-sm sm:text-base md:text-lg truncate">
                     Day {day.day}
-                    {day.date && <span className="text-white/50 font-normal ml-2">• {day.date}</span>}
+                    {day.date && <span className="text-white/50 font-normal ml-1 sm:ml-2 hidden sm:inline">• {day.date}</span>}
                   </h3>
-                  <p className="text-white/50 text-sm">{day.places.length} activities planned</p>
+                  <p className="text-white/50 text-xs sm:text-sm truncate">{day.places.length} activities planned</p>
                 </div>
               </div>
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2 sm:gap-3 md:gap-4 flex-shrink-0">
                 <div className="text-right">
-                  <p className="text-white/50 text-xs uppercase tracking-wide">Daily Budget</p>
-                  <p className="text-green-400 font-semibold">{day.dailyCost}</p>
+                  <p className="text-white/50 text-[10px] sm:text-xs uppercase tracking-wide hidden sm:block">Daily Budget</p>
+                  <p className="text-green-400 font-semibold text-xs sm:text-sm md:text-base">{day.dailyCost}</p>
                 </div>
                 {expandedDays.includes(day.day) ? (
-                  <ChevronUp className="w-5 h-5 text-white/50" />
+                  <ChevronUp className="w-4 h-4 sm:w-5 sm:h-5 text-white/50" />
                 ) : (
-                  <ChevronDown className="w-5 h-5 text-white/50" />
+                  <ChevronDown className="w-4 h-4 sm:w-5 sm:h-5 text-white/50" />
                 )}
               </div>
             </button>
@@ -415,10 +415,10 @@ export function ItineraryDisplay({ data, onClose, tripId, editable = false, onPl
                   exit={{ opacity: 0, height: 0 }}
                   className="overflow-hidden"
                 >
-                  <div className="px-6 pb-6">
+                  <div className="px-3 sm:px-4 md:px-6 pb-4 sm:pb-5 md:pb-6">
                     <div className="relative">
                       {/* Timeline Line */}
-                      <div className="absolute left-5 top-0 bottom-0 w-0.5 bg-gradient-to-b from-indigo-500 via-purple-500 to-pink-500" />
+                      <div className="absolute left-4 sm:left-5 top-0 bottom-0 w-0.5 bg-gradient-to-b from-indigo-500 via-purple-500 to-pink-500" />
                       
                       {/* Places */}
                       <div className="space-y-4">
@@ -430,69 +430,69 @@ export function ItineraryDisplay({ data, onClose, tripId, editable = false, onPl
                               initial={{ opacity: 0, x: -20 }}
                               animate={{ opacity: 1, x: 0 }}
                               transition={{ delay: idx * 0.05 }}
-                              className="relative pl-14"
+                              className="relative pl-10 sm:pl-12 md:pl-14"
                             >
                               {/* Timeline Dot */}
-                              <div className="absolute left-3 top-4 w-5 h-5 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full border-4 border-slate-900" />
+                              <div className="absolute left-2.5 sm:left-3 top-3 sm:top-4 w-4 h-4 sm:w-5 sm:h-5 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full border-2 sm:border-4 border-slate-900" />
                               
                               {/* Place Card */}
-                              <div className={`bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl p-5 transition-all group ${place.completed ? 'opacity-60' : ''}`}>
-                                <div className="flex items-start justify-between mb-3">
-                                  <div className="flex items-start gap-3 flex-1">
-                                    <div className={`w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 ${place.completed ? 'bg-green-500/20' : 'bg-indigo-500/20'}`}>
+                              <div className={`bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl p-3 sm:p-4 md:p-5 transition-all group ${place.completed ? 'opacity-60' : ''}`}>
+                                <div className="flex items-start justify-between mb-2 sm:mb-3 gap-2">
+                                  <div className="flex items-start gap-2 sm:gap-3 flex-1 min-w-0">
+                                    <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-lg flex items-center justify-center flex-shrink-0 ${place.completed ? 'bg-green-500/20' : 'bg-indigo-500/20'}`}>
                                       {place.completed ? (
-                                        <Check className="w-5 h-5 text-green-400" />
+                                        <Check className="w-4 h-4 sm:w-5 sm:h-5 text-green-400" />
                                       ) : (
-                                        <MapPin className="w-5 h-5 text-indigo-400" />
+                                        <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-indigo-400" />
                                       )}
                                     </div>
-                                    <div className="flex-1">
-                                      <div className="flex items-center gap-2 flex-wrap">
-                                        <h4 className={`font-semibold group-hover:text-indigo-300 transition-colors ${place.completed ? 'text-white/50 line-through' : 'text-white'}`}>
+                                    <div className="flex-1 min-w-0">
+                                      <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
+                                        <h4 className={`font-semibold text-sm sm:text-base group-hover:text-indigo-300 transition-colors truncate ${place.completed ? 'text-white/50 line-through' : 'text-white'}`}>
                                           {place.name}
                                         </h4>
                                         <a
                                           href={getGoogleMapsUrl(place.name, data.metadata?.landingCity)}
                                           target="_blank"
                                           rel="noopener noreferrer"
-                                          className="inline-flex items-center gap-1 bg-blue-500/20 hover:bg-blue-500/30 text-blue-400 px-2 py-1 rounded-lg text-xs font-medium transition-all"
+                                          className="inline-flex items-center gap-1 bg-blue-500/20 hover:bg-blue-500/30 text-blue-400 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-lg text-[10px] sm:text-xs font-medium transition-all flex-shrink-0"
                                           title="View on Google Maps"
                                         >
-                                          <MapPin className="w-3 h-3" />
-                                          <span>Map</span>
-                                          <ExternalLink className="w-3 h-3" />
+                                          <MapPin className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
+                                          <span className="hidden xs:inline">Map</span>
+                                          <ExternalLink className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
                                         </a>
                                       </div>
                                       {place.description && (
-                                        <p className="text-white/50 text-sm mt-1 leading-relaxed">
+                                        <p className="text-white/50 text-xs sm:text-sm mt-1 leading-relaxed line-clamp-2">
                                           {place.description}
                                         </p>
                                       )}
                                     </div>
                                   </div>
-                                  <div className="flex items-center gap-2 flex-shrink-0">
-                                    <span className="bg-green-400/10 text-green-400 px-3 py-1 rounded-full text-sm font-medium">
+                                  <div className="flex items-center gap-1 sm:gap-2 flex-shrink-0">
+                                    <span className="bg-green-400/10 text-green-400 px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-xs sm:text-sm font-medium">
                                       {place.cost}
                                     </span>
                                     {editable && (
-                                      <div className="flex items-center gap-1">
+                                      <div className="flex items-center gap-0.5 sm:gap-1">
                                         <button
                                           onClick={() => handleToggleComplete(dayIndex, idx)}
-                                          className={`w-8 h-8 rounded-lg flex items-center justify-center transition-all ${
+                                          className={`w-7 h-7 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center transition-all ${
                                             place.completed 
                                               ? 'bg-green-500/20 hover:bg-green-500/30 text-green-400' 
                                               : 'bg-white/10 hover:bg-white/20 text-white/70'
                                           }`}
                                           title={place.completed ? 'Mark as incomplete' : 'Mark as complete'}
                                         >
-                                          <Check className="w-4 h-4" />
+                                          <Check className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                                         </button>
                                         <button
                                           onClick={() => handleRemovePlace(dayIndex, idx)}
-                                          className="w-8 h-8 bg-red-500/20 hover:bg-red-500/30 text-red-400 rounded-lg flex items-center justify-center transition-all"
+                                          className="w-7 h-7 sm:w-8 sm:h-8 bg-red-500/20 hover:bg-red-500/30 text-red-400 rounded-lg flex items-center justify-center transition-all"
                                           title="Remove place"
                                         >
-                                          <Trash2 className="w-4 h-4" />
+                                          <Trash2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                                         </button>
                                       </div>
                                     )}
@@ -500,23 +500,23 @@ export function ItineraryDisplay({ data, onClose, tripId, editable = false, onPl
                                 </div>
                                 
                                 {/* Place Meta */}
-                                <div className="flex flex-wrap gap-3 mt-4">
+                                <div className="flex flex-wrap gap-1.5 sm:gap-2 md:gap-3 mt-3 sm:mt-4">
                                   {place.time && (
-                                    <div className="flex items-center gap-2 bg-white/5 px-3 py-1.5 rounded-lg">
-                                      <Clock className="w-4 h-4 text-blue-400" />
-                                      <span className="text-white/70 text-sm">{place.time}</span>
+                                    <div className="flex items-center gap-1 sm:gap-1.5 md:gap-2 bg-white/5 px-2 sm:px-2.5 md:px-3 py-1 sm:py-1.5 rounded-lg">
+                                      <Clock className="w-3 h-3 sm:w-4 sm:h-4 text-blue-400 flex-shrink-0" />
+                                      <span className="text-white/70 text-xs sm:text-sm">{place.time}</span>
                                     </div>
                                   )}
                                   {place.duration && (
-                                    <div className="flex items-center gap-2 bg-white/5 px-3 py-1.5 rounded-lg">
-                                      <Timer className="w-4 h-4 text-purple-400" />
-                                      <span className="text-white/70 text-sm">{place.duration}</span>
+                                    <div className="flex items-center gap-1 sm:gap-1.5 md:gap-2 bg-white/5 px-2 sm:px-2.5 md:px-3 py-1 sm:py-1.5 rounded-lg">
+                                      <Timer className="w-3 h-3 sm:w-4 sm:h-4 text-purple-400 flex-shrink-0" />
+                                      <span className="text-white/70 text-xs sm:text-sm">{place.duration}</span>
                                     </div>
                                   )}
                                   {place.travelMode && (
-                                    <div className="flex items-center gap-2 bg-white/5 px-3 py-1.5 rounded-lg">
-                                      <TravelIcon className="w-4 h-4 text-cyan-400" />
-                                      <span className="text-white/70 text-sm">{place.travelMode}</span>
+                                    <div className="flex items-center gap-1 sm:gap-1.5 md:gap-2 bg-white/5 px-2 sm:px-2.5 md:px-3 py-1 sm:py-1.5 rounded-lg">
+                                      <TravelIcon className="w-3 h-3 sm:w-4 sm:h-4 text-cyan-400 flex-shrink-0" />
+                                      <span className="text-white/70 text-xs sm:text-sm">{place.travelMode}</span>
                                     </div>
                                   )}
                                 </div>
