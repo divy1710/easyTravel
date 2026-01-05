@@ -1,15 +1,11 @@
 import { Router } from 'express';
 import bcrypt from 'bcryptjs';
 import jwt, { SignOptions } from 'jsonwebtoken';
-import { OAuth2Client } from 'google-auth-library';
 import User from '../../../models/User';
 import { config } from '../../../config';
 import { authenticateJWT, AuthRequest } from '../middlewares/auth';
 
 const router = Router();
-
-// Initialize Google OAuth client
-const googleClient = new OAuth2Client(config.googleClientId);
 
 // Cookie options for HTTP-only secure cookies
 const getCookieOptions = () => {
@@ -121,85 +117,6 @@ router.post('/guest', (req: any, res: any) => {
   res.cookie('authToken', token, getCookieOptions());
   
   res.json({ user: { guest: true }, message: 'Guest session created' });
-});
-
-// Google OAuth Login/Signup
-router.post('/google', async (req: any, res: any, next: any) => {
-  try {
-    const { credential } = req.body;
-    
-    if (!credential) {
-      return res.status(400).json({ error: 'Google credential is required' });
-    }
-
-    // Verify the Google token
-    const ticket = await googleClient.verifyIdToken({
-      idToken: credential,
-      audience: config.googleClientId,
-    });
-
-    const payload = ticket.getPayload();
-    if (!payload || !payload.email) {
-      return res.status(401).json({ error: 'Invalid Google token' });
-    }
-
-    const { email, sub: googleId, given_name, family_name, picture } = payload;
-
-    // Check if user exists
-    let user = await User.findOne({ $or: [{ email }, { googleId }] });
-
-    if (user) {
-      // Update existing user with Google info if not already set
-      if (!user.googleId) {
-        user.googleId = googleId;
-        user.avatar = picture;
-        await user.save();
-      }
-    } else {
-      // Create new user with Google info
-      // Google users don't need a password, so generate a random one
-      const randomPassword = await bcrypt.hash(Math.random().toString(36), 12);
-      
-      user = await User.create({
-        email,
-        password: randomPassword,
-        firstName: given_name || '',
-        lastName: family_name || '',
-        googleId,
-        avatar: picture,
-      });
-    }
-
-    // Generate JWT token
-    const token = jwt.sign(
-      { id: user._id, email: user.email },
-      config.jwt.secret,
-      jwtSignOptions
-    );
-
-    // Set HTTP-only cookie
-    res.cookie('authToken', token, getCookieOptions());
-
-    res.json({
-      user: {
-        id: user._id,
-        email: user.email,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        avatar: user.avatar,
-        createdAt: user.createdAt,
-      },
-      message: 'Google login successful',
-    });
-  } catch (error: any) {
-    console.error('Google OAuth error:', error);
-    
-    if (error.message?.includes('Token used too late')) {
-      return res.status(401).json({ error: 'Google token expired. Please try again.' });
-    }
-    
-    res.status(401).json({ error: 'Google authentication failed' });
-  }
 });
 
 export default router;

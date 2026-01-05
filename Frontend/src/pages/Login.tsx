@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
-import { login as loginApi, googleLogin } from '../api/auth';
+import { login as loginApi } from '../api/auth';
 import { useAuth } from '../context/AuthContext';
 import { Mail, Lock, LogIn, Plane } from 'lucide-react';
-import GoogleLoginButton from '../components/GoogleLoginButton';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -30,24 +29,6 @@ export default function Login() {
     } finally {
       setLoading(false);
     }
-  };
-
-  const handleGoogleSuccess = async (credential: string) => {
-    setLoading(true);
-    setError(null);
-    try {
-      const res = await googleLogin(credential);
-      login(res.user);
-      navigate(from, { replace: true });
-    } catch (err: any) {
-      setError(err.response?.data?.error || 'Google login failed');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleGoogleError = () => {
-    setError('Google login failed. Please try again.');
   };
 
   return (
@@ -128,20 +109,6 @@ export default function Login() {
               )}
             </button>
           </form>
-
-          {/* Divider */}
-          <div className="my-6 flex items-center gap-3">
-            <div className="flex-1 h-px bg-white/20"></div>
-            <span className="text-white/40 text-sm">or</span>
-            <div className="flex-1 h-px bg-white/20"></div>
-          </div>
-
-          {/* Google Login Button */}
-          <GoogleLoginButton
-            onSuccess={handleGoogleSuccess}
-            onError={handleGoogleError}
-            text="signin_with"
-          />
 
           {/* Footer */}
           <div className="mt-8 text-center">
