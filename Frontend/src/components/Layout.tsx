@@ -176,169 +176,59 @@ export function Layout({ children }: { children: ReactNode }) {
         {children}
       </main>
 
-      {/* Modern footer */}
-      <footer className="relative bg-gradient-to-b from-slate-900 via-slate-900 to-slate-950 text-white overflow-hidden">
-        {/* Decorative background elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-0 left-1/4 w-96 h-96 bg-indigo-600/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-purple-600/10 rounded-full blur-3xl" />
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-cyan-600/5 rounded-full blur-3xl" />
-        </div>
-
-        {/* Newsletter CTA Section */}
-        <div className="relative border-b border-white/10">
-          <div className="max-w-7xl mx-auto px-6 py-16">
-            <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
-              <div className="text-center lg:text-left">
-                <motion.h2 
-                  className="text-3xl md:text-4xl font-bold mb-3"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                >
-                  Let's Turn That Wanderlust Into a{' '}
-                  <span className="bg-gradient-to-r from-cyan-400 via-indigo-400 to-purple-400 bg-clip-text text-transparent">
-                    Boarding Pass
-                  </span>
-                </motion.h2>
-                <p className="text-gray-400 text-lg max-w-xl">
-                  Good vibes & great deals, straight to your inbox. Subscribe for exclusive travel tips and offers!
-                </p>
+      {/* Footer */}
+      <footer className="bg-slate-900 text-white">
+        <div className="max-w-7xl mx-auto px-6 py-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+            {/* Brand */}
+            <div>
+              <div className="flex items-center gap-2 mb-4">
+                <Plane className="w-6 h-6 text-cyan-400" />
+                <span className="font-bold text-xl">PrimeTravel</span>
               </div>
-              <motion.div 
-                className="w-full lg:w-auto"
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-              >
-                <NewsletterForm />
-              </motion.div>
-            </div>
-          </div>
-        </div>
-
-        {/* Main Footer Content */}
-        <div className="relative max-w-7xl mx-auto px-6 py-16">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-12">
-            {/* Brand Column */}
-            <div className="lg:col-span-2">
-              <div className="flex items-center gap-3 mb-6">
-                <motion.div 
-                  className="flex items-center justify-center w-12 h-12 rounded-2xl bg-gradient-to-br from-indigo-500 via-purple-500 to-cyan-500 shadow-lg shadow-indigo-500/25"
-                  whileHover={{ scale: 1.05, rotate: 5 }}
-                >
-                  <Plane className="w-6 h-6 text-white transform rotate-[-30deg]" />
-                </motion.div>
-                <div className="flex items-baseline">
-                  <span className="font-extrabold text-2xl bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">Prime</span>
-                  <span className="font-extrabold text-2xl bg-gradient-to-r from-cyan-400 to-indigo-400 bg-clip-text text-transparent">Travel</span>
-                </div>
-              </div>
-              <p className="text-gray-400 mb-6 max-w-sm leading-relaxed">
-                PrimeTravel is your AI-powered travel companion, crafting personalized itineraries that turn your travel dreams into unforgettable adventures.
+              <p className="text-gray-400 mb-4">
+                Your AI-powered travel companion for personalized itineraries.
               </p>
-              
-              {/* Contact Info */}
-              <div className="space-y-3 mb-6">
-                <a href="mailto:hello@primetravel.com" className="flex items-center gap-3 text-gray-400 hover:text-cyan-400 transition-colors group">
-                  <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center group-hover:bg-cyan-500/20 transition-colors">
-                    <Mail className="w-4 h-4" />
-                  </div>
-                  <span>hello@primetravel.com</span>
-                </a>
-                <a href="tel:+1234567890" className="flex items-center gap-3 text-gray-400 hover:text-cyan-400 transition-colors group">
-                  <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center group-hover:bg-cyan-500/20 transition-colors">
-                    <Phone className="w-4 h-4" />
-                  </div>
-                  <span>+1 (234) 567-890</span>
-                </a>
-              </div>
-
-              {/* Social Links */}
               <div className="flex gap-3">
                 {[
-                  { icon: Facebook, href: '#', label: 'Facebook' },
-                  { icon: Twitter, href: '#', label: 'Twitter' },
-                  { icon: Instagram, href: '#', label: 'Instagram' },
-                  { icon: Linkedin, href: '#', label: 'LinkedIn' },
-                  { icon: Youtube, href: '#', label: 'YouTube' },
-                ].map(({ icon: Icon, href, label }) => (
-                  <motion.a
-                    key={label}
+                  { icon: Mail, href: 'mailto:primetravel04@gmail.com' },
+                  { icon: Instagram, href: 'https://www.instagram.com/primetravel04?igsh=OWU1eHRubzVsbDRo' },
+                ].map(({ icon: Icon, href }, i) => (
+                  <a
+                    key={i}
                     href={href}
-                    aria-label={label}
-                    className="w-10 h-10 rounded-xl bg-white/5 hover:bg-gradient-to-br hover:from-indigo-500 hover:to-purple-500 flex items-center justify-center text-gray-400 hover:text-white transition-all"
-                    whileHover={{ scale: 1.1, y: -2 }}
-                    whileTap={{ scale: 0.95 }}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-9 h-9 rounded-lg bg-white/5 hover:bg-cyan-500/20 flex items-center justify-center text-gray-400 hover:text-cyan-400 transition-colors"
                   >
                     <Icon className="w-4 h-4" />
-                  </motion.a>
+                  </a>
                 ))}
               </div>
             </div>
 
-            {/* Travel Destinations */}
+            {/* Quick Links */}
             <div>
-              <h4 className="font-semibold text-white mb-5 flex items-center gap-2">
-                <Globe className="w-4 h-4 text-cyan-400" />
-                Destinations
-              </h4>
-              <ul className="space-y-3">
-                {['Europe', 'Asia', 'North America', 'South America', 'Australia', 'Africa', 'Caribbean'].map((dest) => (
-                  <li key={dest}>
-                    <Link to="/" className="text-gray-400 hover:text-white hover:pl-2 transition-all inline-flex items-center gap-1 group">
-                      <span className="opacity-0 group-hover:opacity-100 transition-opacity">→</span>
-                      {dest}
+              <h4 className="font-semibold mb-4">Company</h4>
+              <ul className="space-y-2">
+                {['About Us', 'How It Works', 'Contact'].map((item) => (
+                  <li key={item}>
+                    <Link to="/" className="text-gray-400 hover:text-white transition-colors">
+                      {item}
                     </Link>
                   </li>
                 ))}
               </ul>
             </div>
 
-            {/* Company */}
+            {/* Support */}
             <div>
-              <h4 className="font-semibold text-white mb-5 flex items-center gap-2">
-                <MapPin className="w-4 h-4 text-purple-400" />
-                Company
-              </h4>
-              <ul className="space-y-3">
-                {[
-                  { name: 'About Us', link: '/' },
-                  { name: 'How It Works', link: '/' },
-                  { name: 'Testimonials', link: '/' },
-                  { name: 'Blog', link: '/' },
-                  { name: 'Careers', link: '/' },
-                  { name: 'Contact Us', link: '/' },
-                ].map(({ name, link }) => (
-                  <li key={name}>
-                    <Link to={link} className="text-gray-400 hover:text-white hover:pl-2 transition-all inline-flex items-center gap-1 group">
-                      <span className="opacity-0 group-hover:opacity-100 transition-opacity">→</span>
-                      {name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Legal & Support */}
-            <div>
-              <h4 className="font-semibold text-white mb-5 flex items-center gap-2">
-                <Shield className="w-4 h-4 text-indigo-400" />
-                Support
-              </h4>
-              <ul className="space-y-3">
-                {[
-                  { name: 'Help Center', link: '/' },
-                  { name: 'Privacy Policy', link: '/' },
-                  { name: 'Terms of Service', link: '/' },
-                  { name: 'Refund Policy', link: '/' },
-                  { name: 'Cookie Policy', link: '/' },
-                  { name: 'FAQ', link: '/' },
-                ].map(({ name, link }) => (
-                  <li key={name}>
-                    <Link to={link} className="text-gray-400 hover:text-white hover:pl-2 transition-all inline-flex items-center gap-1 group">
-                      <span className="opacity-0 group-hover:opacity-100 transition-opacity">→</span>
-                      {name}
+              <h4 className="font-semibold mb-4">Support</h4>
+              <ul className="space-y-2">
+                {['Help Center', 'Privacy Policy', 'Terms of Service'].map((item) => (
+                  <li key={item}>
+                    <Link to="/" className="text-gray-400 hover:text-white transition-colors">
+                      {item}
                     </Link>
                   </li>
                 ))}
@@ -346,36 +236,9 @@ export function Layout({ children }: { children: ReactNode }) {
             </div>
           </div>
 
-          {/* Trust Badges */}
-          <div className="flex flex-wrap justify-center gap-6 py-8 border-t border-b border-white/10 mb-8">
-            {[
-              { icon: Shield, text: 'Secure Payments' },
-              { icon: Clock, text: '24/7 Support' },
-              { icon: Globe, text: '500+ Destinations' },
-              { icon: Heart, text: '100K+ Happy Travelers' },
-            ].map(({ icon: Icon, text }) => (
-              <div key={text} className="flex items-center gap-2 text-gray-400">
-                <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center">
-                  <Icon className="w-4 h-4 text-cyan-400" />
-                </div>
-                <span className="text-sm">{text}</span>
-              </div>
-            ))}
-          </div>
-
-          {/* Bottom Bar */}
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-gray-500">
-            <p className="flex items-center gap-1">
-              © {new Date().getFullYear()} PrimeTravel. Made with 
-              <Heart className="w-4 h-4 text-red-500 fill-red-500" /> 
-              for travelers worldwide.
-            </p>
-            <div className="flex items-center gap-6">
-              <Link to="/" className="hover:text-white transition-colors">Privacy</Link>
-              <Link to="/" className="hover:text-white transition-colors">Terms</Link>
-              <Link to="/" className="hover:text-white transition-colors">Cookies</Link>
-              <Link to="/" className="hover:text-white transition-colors">Sitemap</Link>
-            </div>
+          {/* Bottom */}
+          <div className="pt-8 border-t border-white/10 text-center text-sm text-gray-500">
+            <p>© {new Date().getFullYear()} PrimeTravel. All rights reserved.</p>
           </div>
         </div>
       </footer>

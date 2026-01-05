@@ -4,7 +4,6 @@ import {
   HowItWorks,
   KeyFeatures,
   SampleItinerary,
-  WhyChooseUs,
   FAQ,
   FinalCTA,
 } from '../components/home';
@@ -25,9 +24,6 @@ export default function Home() {
 
       {/* Sample Itinerary Preview - Interactive timeline demo */}
       <SampleItinerary />
-
-      {/* Why Choose Us - Benefits and stats */}
-      <WhyChooseUs />
 
       {/* Final CTA - Strong call to action */}
       <FinalCTA isLoggedIn={!!user} />
