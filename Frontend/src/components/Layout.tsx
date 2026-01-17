@@ -143,24 +143,11 @@ export function Layout({ children }: { children: ReactNode }) {
             ) : (
               <>
                 <Link 
-                  to="/login" 
-                  className={`transition-all font-semibold text-sm ${
-                    isHomePage 
-                      ? 'text-white/90 hover:text-white hover:scale-105' 
-                      : 'text-gray-700 hover:text-indigo-600 hover:scale-105'
-                  }`}
-                >
-                  Login
-                </Link>
-                <Link 
                   to="/signup" 
-                  className={`px-6 py-2.5 rounded-full font-semibold text-sm transition-all shadow-md hover:shadow-xl hover:scale-105 ${
-                    isHomePage
-                      ? 'bg-white text-gray-900 hover:shadow-white/30 border border-white/20'
-                      : 'bg-gradient-to-r from-cyan-500 via-indigo-600 to-purple-600 text-white hover:shadow-indigo-500/40'
-                  }`}
+                  className="px-5 py-2 rounded-md font-normal text-sm transition-all bg-white shadow-sm hover:bg-gray-50"
+                  style={{ color: '#D97757', border: '1px solid #F5D5CE' }}
                 >
-                  Get Started
+                  Sign in / Register
                 </Link>
               </>
             )}
@@ -177,48 +164,44 @@ export function Layout({ children }: { children: ReactNode }) {
       </main>
 
       {/* Footer */}
-      <footer className="relative bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 text-white overflow-hidden">
-        {/* Background Pattern */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(99,102,241,0.1),transparent_50%),radial-gradient(circle_at_70%_80%,rgba(139,92,246,0.1),transparent_50%)]" />
-        
-        <div className="relative max-w-7xl mx-auto px-6 py-16">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+      <footer className="relative bg-white border-t border-gray-100">
+        <div className="max-w-6xl mx-auto px-6 py-12">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-10">
             {/* Brand */}
             <div>
-              <div className="flex items-center gap-3 mb-5">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-cyan-500/30">
-                  <Plane className="w-5 h-5 text-white" />
-                </div>
-                <span className="font-bold text-2xl bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">PrimeTravel</span>
+              <div className="flex items-center gap-2 mb-4">
+                <span className="font-bold text-xl" style={{ color: '#D97757' }}>Travel</span>
+                <span className="text-xl" style={{ color: '#D97757' }}>✈</span>
               </div>
-              <p className="text-gray-400 mb-6 leading-relaxed">
-                Your AI-powered travel companion for personalized itineraries.
+              <p className="text-gray-500 text-sm mb-4 leading-relaxed">
+                Travel helps companies manage payments easily.
               </p>
-              <div className="flex gap-4">
+              <div className="flex gap-3">
                 {[
+                  { icon: Instagram, href: 'https://www.instagram.com/primetravel04' },
                   { icon: Mail, href: 'mailto:primetravel04@gmail.com' },
-                  { icon: Instagram, href: 'https://www.instagram.com/primetravel04?igsh=OWU1eHRubzVsbDRo' },
                 ].map(({ icon: Icon, href }, i) => (
                   <a
                     key={i}
                     href={href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-11 h-11 rounded-xl bg-white/5 backdrop-blur-sm hover:bg-gradient-to-br hover:from-cyan-500/20 hover:to-indigo-500/20 flex items-center justify-center text-gray-400 hover:text-cyan-400 transition-all hover:scale-110 hover:shadow-lg hover:shadow-cyan-500/20 border border-white/10"
+                    className="w-8 h-8 rounded-full flex items-center justify-center transition-all hover:opacity-80"
+                    style={{ backgroundColor: '#FDEAE6', color: '#D97757' }}
                   >
-                    <Icon className="w-5 h-5" />
+                    <Icon className="w-4 h-4" />
                   </a>
                 ))}
               </div>
             </div>
 
-            {/* Quick Links */}
+            {/* Company Links */}
             <div>
-              <h4 className="font-bold text-lg mb-5 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">Company</h4>
+              <h4 className="font-semibold text-gray-800 mb-4">Company</h4>
               <ul className="space-y-3">
                 {['About Us', 'How It Works', 'Contact'].map((item) => (
                   <li key={item}>
-                    <Link to="/" className="text-gray-400 hover:text-cyan-400 transition-all hover:translate-x-1 inline-block">
+                    <Link to="/" className="text-gray-500 text-sm hover:text-gray-800 transition-colors">
                       {item}
                     </Link>
                   </li>
@@ -226,25 +209,31 @@ export function Layout({ children }: { children: ReactNode }) {
               </ul>
             </div>
 
-            {/* Support */}
+            {/* Support Links */}
             <div>
-              <h4 className="font-bold text-lg mb-5 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">Support</h4>
+              <h4 className="font-semibold text-gray-800 mb-4">Support</h4>
               <ul className="space-y-3">
                 {['Help Center', 'Privacy Policy', 'Terms of Service'].map((item) => (
                   <li key={item}>
-                    <Link to="/" className="text-gray-400 hover:text-cyan-400 transition-all hover:translate-x-1 inline-block">
+                    <Link to="/" className="text-gray-500 text-sm hover:text-gray-800 transition-colors">
                       {item}
                     </Link>
                   </li>
                 ))}
               </ul>
+            </div>
+
+            {/* Newsletter */}
+            <div>
+              <h4 className="font-semibold text-gray-800 mb-4">Join Our Newsletter</h4>
+              <NewsletterForm />
             </div>
           </div>
 
           {/* Bottom */}
-          <div className="pt-10 border-t border-white/10 text-center">
-            <p className="text-gray-400 text-sm">
-              © {new Date().getFullYear()} <span className="font-semibold text-white">PrimeTravel</span>. All rights reserved. Made with ❤️ for travelers worldwide 🌍
+          <div className="pt-8 border-t border-gray-100 text-center">
+            <p className="text-gray-500 text-sm">
+              © {new Date().getFullYear()} PrimeTravel. All rights reserved. Made with <span style={{ color: '#D97757' }}>❤</span> for travelers worldwide 🌍
             </p>
           </div>
         </div>
@@ -268,46 +257,28 @@ function NewsletterForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="relative">
-      <div className="flex flex-col sm:flex-row gap-3">
-        <div className="relative">
-          <Mail className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Enter your email"
-            className="w-full sm:w-80 pl-12 pr-4 py-4 rounded-xl bg-white/10 border border-white/10 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500/50 backdrop-blur-sm transition-all"
-            required
-          />
-        </div>
-        <motion.button
+    <form onSubmit={handleSubmit}>
+      <div className="flex gap-2">
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Your email address"
+          className="flex-1 px-4 py-2.5 rounded-md border border-gray-200 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-200 focus:border-orange-300 text-sm"
+          required
+        />
+        <button
           type="submit"
-          className="px-8 py-4 bg-gradient-to-r from-cyan-500 via-indigo-500 to-purple-500 text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-indigo-500/25 transition-all flex items-center justify-center gap-2"
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
+          className="px-5 py-2.5 text-white font-medium rounded-md text-sm transition-all hover:opacity-90"
+          style={{ backgroundColor: '#D97757' }}
         >
-          {isSubmitted ? (
-            <>
-              <Heart className="w-5 h-5" />
-              Subscribed!
-            </>
-          ) : (
-            <>
-              Subscribe
-              <Send className="w-4 h-4" />
-            </>
-          )}
-        </motion.button>
+          {isSubmitted ? 'Subscribed!' : 'Subscribe'}
+        </button>
       </div>
       {isSubmitted && (
-        <motion.p
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="absolute -bottom-8 left-0 text-cyan-400 text-sm"
-        >
-          🎉 Welcome aboard! Check your inbox for travel inspiration.
-        </motion.p>
+        <p className="mt-2 text-sm" style={{ color: '#D97757' }}>
+          🎉 Welcome aboard!
+        </p>
       )}
     </form>
   );

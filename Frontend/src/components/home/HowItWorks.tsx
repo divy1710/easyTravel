@@ -1,27 +1,24 @@
 import { motion } from 'framer-motion';
-import { MapPin, Cpu, Compass } from 'lucide-react';
+import { MapPin, Cpu, Compass, Plane } from 'lucide-react';
 
 const steps = [
   {
     icon: MapPin,
-    step: '01',
+    step: '1',
     title: 'Enter Trip Details',
     description: 'Tell us your destination, dates, budget, and interests',
-    color: 'from-blue-500 to-cyan-500',
   },
   {
     icon: Cpu,
-    step: '02',
+    step: '2',
     title: 'AI Plans Your Trip',
     description: 'Our AI generates a personalized day-by-day itinerary',
-    color: 'from-purple-500 to-pink-500',
   },
   {
     icon: Compass,
-    step: '03',
+    step: '3',
     title: 'Customize & Travel',
     description: 'Fine-tune your plan, then hit the road with confidence',
-    color: 'from-orange-500 to-red-500',
   },
 ];
 
@@ -40,16 +37,14 @@ const itemVariants = {
 
 export default function HowItWorks() {
   return (
-    <section className="relative py-24 px-4 overflow-hidden">
-      {/* Background image with overlay */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center bg-fixed"
-        style={{
-          backgroundImage: `url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')`
-        }}
-      />
-      {/* Gradient overlay for better readability */}
-      <div className="absolute inset-0 bg-gradient-to-b from-slate-900/90 via-slate-900/85 to-slate-900/90" />
+    <section className="relative py-20 px-4 overflow-hidden" style={{ backgroundColor: '#FDF5F3' }}>
+      {/* Decorative elements */}
+      <div className="absolute left-8 top-1/2 -translate-y-1/2 opacity-40">
+        <MapPin className="w-12 h-12" style={{ color: '#D97757' }} strokeWidth={1.5} />
+      </div>
+      <div className="absolute right-8 top-1/4 opacity-40">
+        <Plane className="w-16 h-16" style={{ color: '#D97757' }} strokeWidth={1.5} />
+      </div>
       
       <div className="relative max-w-6xl mx-auto">
         {/* Section header */}
@@ -60,10 +55,10 @@ export default function HowItWorks() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
             How It Works
           </h2>
-          <p className="text-gray-300 text-lg max-w-2xl mx-auto">
+          <p className="text-gray-600 text-base max-w-2xl mx-auto">
             Plan your dream vacation in three simple steps
           </p>
         </motion.div>
@@ -74,7 +69,7 @@ export default function HowItWorks() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="grid md:grid-cols-3 gap-8"
+          className="grid md:grid-cols-3 gap-6"
         >
           {steps.map((step, index) => (
             <motion.div
@@ -82,29 +77,24 @@ export default function HowItWorks() {
               variants={itemVariants}
               className="relative"
             >
-              {/* Connector line */}
-              {index < steps.length - 1 && (
-                <div className="hidden md:block absolute top-16 left-1/2 w-full h-0.5 bg-gradient-to-r from-white/20 to-white/10" />
-              )}
-
-              <div className="relative bg-white/10 backdrop-blur-md rounded-2xl p-8 border border-white/20 hover:bg-white/15 hover:border-white/30 transition-all duration-300 text-center">
+              <div className="relative rounded-3xl p-8 hover:shadow-lg transition-all duration-300 text-center h-full" style={{ backgroundColor: '#FDEAE6' }}>
                 {/* Step number badge */}
                 <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                  <span className="text-xs font-bold text-white bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full border border-white/30">
+                  <span className="text-xs font-semibold text-white px-4 py-1.5 rounded-full shadow-md" style={{ backgroundColor: '#D97757' }}>
                     STEP {step.step}
                   </span>
                 </div>
 
                 {/* Icon */}
-                <div className={`w-16 h-16 mx-auto mb-6 rounded-2xl bg-gradient-to-br ${step.color} flex items-center justify-center shadow-lg shadow-black/20`}>
-                  <step.icon className="w-8 h-8 text-white" />
+                <div className="w-16 h-16 mx-auto mb-6 mt-4 rounded-full bg-white flex items-center justify-center" style={{ borderColor: '#F5D5CE', borderWidth: '2px' }}>
+                  <step.icon className="w-7 h-7" style={{ color: '#D97757' }} strokeWidth={2} />
                 </div>
 
                 {/* Content */}
-                <h3 className="text-xl font-semibold text-white mb-3">
+                <h3 className="text-xl font-semibold text-gray-900 mb-3">
                   {step.title}
                 </h3>
-                <p className="text-gray-300 leading-relaxed">
+                <p className="text-gray-600 leading-relaxed text-sm">
                   {step.description}
                 </p>
               </div>
