@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: primetravel-backend
+    runtime: node
+    buildCommand: cd Backend && npm install && npm run build
+    startCommand: cd Backend && npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGO_URI
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: MAPBOX_TOKEN
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false

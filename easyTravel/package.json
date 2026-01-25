@@ -1,0 +1,13 @@
+{
+  "name": "primetravel",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "cd Backend && npm start",
+    "build": "cd Backend && npm install && npm run build",
+    "install-backend": "cd Backend && npm install",
+    "install-frontend": "cd Frontend && npm install"
+  },
+  "dependencies": {
+    "react-beautiful-dnd": "^13.1.1"
+  }
+}

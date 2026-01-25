@@ -1,0 +1,65 @@
+import express from 'express';
+import cors from 'cors';
+import morgan from 'morgan';
+import cookieParser from 'cookie-parser';
+import rateLimit from 'express-rate-limit';
+import { config } from './config';
+import { errorHandler } from './api/v1/middlewares/errorHandler';
+import v1Routes from './api/v1/routes';
+
+const app = express();
+
+// Middleware
+app.use(cors({
+  origin: config.nodeEnv === 'production' 
+    ? ['https://www.primetravel.in', 'https://easy-travel-kappa.vercel.app']
+    : ['http://localhost:5173', 'http://localhost:3000'],
+  credentials: true, // Allow cookies to be sent
+}));
+
+// Security headers for Google OAuth
+app.use((req, res, next) => {
+  // Remove restrictive headers that block Google OAuth
+  res.removeHeader('Cross-Origin-Opener-Policy');
+  res.removeHeader('Cross-Origin-Embedder-Policy');
+  next();
+});
+
+app.use(cookieParser());
+app.use(express.json());
+app.use(morgan(config.nodeEnv === 'production' ? 'combined' : 'dev'));
+
+// Rate limiting - relaxed for development, stricter for production
+const limiter = rateLimit({
+  windowMs: 60 * 1000, // 1 minute
+  max: config.nodeEnv === 'production' ? 30 : 100, // requests per window
+  message: { error: 'Too many requests, please try again later.' },
+  standardHeaders: true,
+  legacyHeaders: false,
+  skip: (req) => req.path === '/api/v1/health', // Skip health checks
+});
+
+app.use(limiter);
+
+// Root route for health checks
+app.get('/', (req: any, res: any) => {
+  res.json({ 
+    status: 'ok', 
+    message: 'PrimeTravel API is running',
+    version: 'v1',
+    endpoints: {
+      health: '/api/v1/health',
+      auth: '/api/v1/auth',
+      trips: '/api/v1/trips',
+      places: '/api/v1/places'
+    }
+  });
+});
+
+// API Versioning
+app.use('/api/v1', v1Routes);
+
+// Centralized error handler
+app.use(errorHandler);
+
+export default app;
