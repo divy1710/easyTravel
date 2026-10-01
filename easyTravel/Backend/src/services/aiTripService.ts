@@ -306,14 +306,15 @@ export async function generateTripWithAI(req: AITripRequest, maxRetries = 2): Pr
       const response = await axios.post(
         'https://api.groq.com/openai/v1/chat/completions',
         {
-          model: 'llama-3.3-70b-versatile',
+          model: 'openai/gpt-oss-120b',
           messages: [
             { role: 'system', content: SYSTEM_PROMPT },
             { role: 'user', content: userPrompt },
           ],
-          temperature: 0.7,
-          max_tokens: 3000,
+          temperature: 0.6,
+          max_tokens: 8000,
           response_format: { type: 'json_object' },
+          reasoning_format: 'hidden', // Required: gpt-oss-120b is a reasoning model; hidden strips <think> tags which are incompatible with json_object mode
         },
         {
           headers: {
